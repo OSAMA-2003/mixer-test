@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { useScroll, useSpring } from "framer-motion";
 
-const TOTAL_FRAMES = 224;
+const TOTAL_FRAMES = 192;
 
 interface HeroScroll3DProps {
   onExploreClick?: () => void;
@@ -29,7 +29,7 @@ export default function HeroScroll3D({}: HeroScroll3DProps) {
     restDelta: 0.001,
   });
 
-  // Preload all 224 frames
+  // Preload all 192 WebP frames from hero-vid2.mp4
   useEffect(() => {
     let isMounted = true;
     const loadedImages: HTMLImageElement[] = [];
@@ -37,8 +37,8 @@ export default function HeroScroll3D({}: HeroScroll3DProps) {
 
     for (let i = 1; i <= TOTAL_FRAMES; i++) {
       const img = new Image();
-      const frameNum = String(i).padStart(3, "0");
-      img.src = `/hero-frames/ezgif-frame-${frameNum}.jpg`;
+      const frameNum = String(i).padStart(4, "0");
+      img.src = `/frames/frame-${frameNum}.webp`;
 
       img.onload = () => {
         if (!isMounted) return;

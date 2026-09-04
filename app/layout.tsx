@@ -1,20 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Cairo } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const cairo = Cairo({
+  variable: "--font-cairo",
+  subsets: ["arabic", "latin"],
+  weight: ["400", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
-  title: "الخلاط | The Mixer - 3D Fresh Juice & Smoothie Experience",
-  description: "Experience the next evolution of fresh cold-pressed smoothies & juices. 30,000 RPM hydro-vortex technology for ultra-smooth texture and 100% natural nutrition.",
+  title: "الخلاط | The Mixer - سوهاج",
+  description: "الخلاط | The Mixer - أحلى خلطات طبيعية 100% في سوهاج. عصائر فريش، سموذي، ميلك شيك، وموخيتو بطريقة مبتكرة في قلب سوهاج.",
   icons: {
     icon: "/logo.png",
   },
@@ -27,13 +23,15 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
+      lang="ar"
+      dir="rtl"
+      className={`${cairo.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#080c10] text-slate-100 selection:bg-amber-500 selection:text-black">
+      <body className="min-h-full flex flex-col bg-white text-gray-900 font-sans selection:bg-[#fab818] selection:text-[#015f70]">
         {children}
       </body>
     </html>
   );
 }
+
 

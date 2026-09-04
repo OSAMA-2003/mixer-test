@@ -1,119 +1,56 @@
 "use client";
 
 import React, { useState } from "react";
-import Navbar from "@/components/navbar";
-import HeroScroll3D from "@/components/hero-scroll-3d";
-import BlendsShowcase, { BlendItem } from "@/components/blends-showcase";
-import TechSpecs from "@/components/tech-specs";
-import NutritionPromise from "@/components/nutrition-promise";
-import OrderDrawer, { CartItem } from "@/components/order-drawer";
-import Footer from "@/components/footer";
+import MixerHeader from "@/components/mixer-header";
+import { ImageSequence } from "@/components/ImageSequence";
+import MixerCategories from "@/components/mixer-categories";
+import MixerFeatured from "@/components/mixer-featured";
+import MixerPromos from "@/components/mixer-promos";
+import MixerStory from "@/components/mixer-story";
+import MixerStats from "@/components/mixer-stats";
+import MixerBranches from "@/components/mixer-branches";
+import MixerFooter from "@/components/mixer-footer";
+import { Heart, ChevronDown, Sparkles } from "lucide-react";
 
 export default function Home() {
-  const [cart, setCart] = useState<CartItem[]>([]);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-
-  // Cart operations
-  const handleAddToCart = (blend: BlendItem) => {
-    setCart((prevCart) => {
-      const existingIndex = prevCart.findIndex((item) => item.blend.id === blend.id);
-      if (existingIndex > -1) {
-        const updated = [...prevCart];
-        updated[existingIndex].quantity += 1;
-        return updated;
-      } else {
-        return [
-          ...prevCart,
-          {
-            blend,
-            quantity: 1,
-            boosters: [],
-            sweetness: "100% Natural Raw Fruit",
-          },
-        ];
-      }
-    });
-  };
-
-  const handleUpdateQuantity = (id: string, delta: number) => {
-    setCart((prev) =>
-      prev
-        .map((item) => {
-          if (item.blend.id === id) {
-            const newQty = item.quantity + delta;
-            return newQty > 0 ? { ...item, quantity: newQty } : null;
-          }
-          return item;
-        })
-        .filter(Boolean) as CartItem[]
-    );
-  };
-
-  const handleRemoveItem = (id: string) => {
-    setCart((prev) => prev.filter((item) => item.blend.id !== id));
-  };
-
-  const handleClearCart = () => {
-    setCart([]);
-  };
-
-  const handleToggleBooster = (id: string, booster: string) => {
-    setCart((prev) =>
-      prev.map((item) => {
-        if (item.blend.id === id) {
-          const exists = item.boosters.includes(booster);
-          const newBoosters = exists
-            ? item.boosters.filter((b) => b !== booster)
-            : [...item.boosters, booster];
-          return { ...item, boosters: newBoosters };
-        }
-        return item;
-      })
-    );
-  };
-
-  const totalCartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-
-  const scrollToBlends = () => {
-    const el = document.getElementById("blends");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [showNavbar, setShowNavbar] = useState(false);
 
   return (
-    <main className="relative min-h-screen bg-[#080c10] text-slate-100 selection:bg-amber-500 selection:text-black">
-      {/* Floating Navigation Header */}
-      {/* <Navbar
-        cartCount={totalCartCount}
-        onOpenCart={() => setIsCartOpen(true)}
-      /> */}
+    <main className="relative min-h-screen bg-white text-gray-800 font-sans selection:bg-[#fab818] selection:text-[#015f70]">
+      {/* 1. Header Navigation (Hidden until user finishes scrolling the ImageSequence) */}
+      <MixerHeader isVisible={showNavbar} />
 
-      {/* 3D Scroll Trigger Hero Section */}
-      <HeroScroll3D onExploreClick={scrollToBlends} />
-
-      {/* Signature Blends Menu */}
-      <BlendsShowcase onAddToCart={handleAddToCart} />
-
-      {/* Technology & Machine Specs */}
-      <TechSpecs />
-
-      {/* Freshness & Nutrition Science */}
-      <NutritionPromise />
-
-      {/* Slide-over Cart & Checkout Drawer */}
-      <OrderDrawer
-        isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
-        cart={cart}
-        onUpdateQuantity={handleUpdateQuantity}
-        onRemoveItem={handleRemoveItem}
-        onClearCart={handleClearCart}
-        onToggleBooster={handleToggleBooster}
+      {/* 2. Cinematic Canvas Image Sequence (Scroll-Controlled) */}
+      <ImageSequence
+        totalFrames={192}
+        containerHeight="h-[420vh]"
+        onSequenceFinish={(finished) => setShowNavbar(finished)}
       />
 
-      {/* Global Footer */}
-      <Footer />
+      {/* 4. Category Selector (عصائر، الركن الشتوي، وافلز، أرز بلبن، إضافات) */}
+      <MixerCategories
+        activeCategory={selectedCategory}
+        onSelectCategory={setSelectedCategory}
+      />
+
+      {/* 5. Featured Dishes & Best Sellers */}
+      <MixerFeatured activeCategory={selectedCategory} />
+
+      {/* 6. Promo Banners (إضافاتك & الركن الشتوي) */}
+      <MixerPromos />
+
+      {/* 7. Brand Story (قصتنا وجودتنا - مختلفين بطريقتنا من سنة 2000) */}
+      <MixerStory />
+
+      {/* 8. Live Statistics Bar */}
+      <MixerStats />
+
+      {/* 9. Branches in Egypt */}
+      <MixerBranches />
+
+      {/* 10. Official Footer */}
+      <MixerFooter />
     </main>
   );
 }
