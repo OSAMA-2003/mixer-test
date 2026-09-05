@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Tajawal } from "next/font/google";
 import "./globals.css";
+import { CartProvider } from "@/context/CartContext";
 
 const tajawal = Tajawal({
   variable: "--font-tajawal",
@@ -29,7 +30,7 @@ export default function RootLayout({
       className={`${tajawal.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-white text-gray-900 font-sans selection:bg-[#fab818] selection:text-[#015f70]">
-        {children}
+        <CartProvider>{children}</CartProvider>
       </body>
     </html>
   );

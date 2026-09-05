@@ -21,8 +21,8 @@ export default function Delivery() {
             <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-12 lg:gap-8">
 
                 <motion.div
-                    initial={{ opacity: 0, x: 40 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.3 }}
                     transition={{
                         duration: 0.8,
@@ -32,10 +32,11 @@ export default function Delivery() {
                 >
                     {/* Badge */}
 
-                    <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/15 px-4 py-2 text-xs font-bold shadow-lg backdrop-blur-md">
-                        <span className="flex h-2 w-2 rounded-full bg-white animate-pulse" />
-                        <Smartphone className="h-4 w-4" />
-                        <span>الخلاط يوصلك لحد باب بيتك</span>
+                    <div className="mb-4 flex items-center gap-3">
+                        <span className="text-xs sm:text-sm font-black tracking-widest text-[#fab818]">
+                            خدمة التوصيل السريع
+                        </span>
+                        <span className="h-px w-12 bg-[#fab818]/40" />
                     </div>
 
                     {/* Heading */}
@@ -44,7 +45,7 @@ export default function Delivery() {
                         نفسك في الخلاط؟
                         <br />
 
-                        <span className="text-white/90">
+                        <span className="text-brand-yellow">
                             خليه يوصلك.
                         </span>
                     </h2>

@@ -1,9 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowLeft, Sparkles } from "lucide-react";
+import { ArrowLeft, Sparkles, X, Eye } from "lucide-react";
 
 const springConfig = {
   type: "spring" as const,
@@ -47,6 +48,8 @@ export function MixerRingsDivider() {
 }
 
 export function MixerExperienceCTA() {
+  const [showMenuModal, setShowMenuModal] = useState(false);
+
   return (
     <section
       id="menu-cta"
@@ -302,7 +305,7 @@ export function MixerExperienceCTA() {
       sm:text-5xl
       lg:text-[4.2rem]
     ">
-              خبراء
+              أصل
               <br />
 
               <span className="
@@ -313,7 +316,7 @@ export function MixerExperienceCTA() {
         bg-clip-text
         text-transparent
       ">
-                السعادة
+                الانبساط
               </span>
             </h2>
 
@@ -335,45 +338,22 @@ export function MixerExperienceCTA() {
               معمول عشان يغيّر مودك من أول رشفة.
             </p>
 
-            {/* CTA */}
-            <div className="mt-8 flex justify-center">
-              <motion.a
-                href="#menu"
-                whileHover={{
-                  scale: 1.04,
-                  y: -3,
-                }}
-                whileTap={{
-                  scale: 0.96,
-                }}
-                className="
-          group
-          inline-flex
-          items-center
-          gap-3
-          bg-gray-950
-          hover:bg-emerald-700
-          text-white
-          font-black
-          px-8
-          py-4
-          rounded-full
-          shadow-xl
-          transition-colors
-        "
+            {/* CTA Buttons */}
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link
+                href="/menu"
+                className="group inline-flex items-center gap-3 bg-gray-950 hover:bg-emerald-700 text-white font-black px-8 py-3.5 rounded-full shadow-xl transition-all hover:-translate-y-0.5"
               >
-                <span>اكتشف المنيو</span>
+                <span>تصفح المنيو والتك اواي</span>
+                <ArrowLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1" />
+              </Link>
 
-                <ArrowLeft
-                  className="
-            w-5
-            h-5
-            transition-transform
-            duration-300
-            group-hover:-translate-x-1
-          "
-                />
-              </motion.a>
+              <button
+                onClick={() => setShowMenuModal(true)}
+                className="inline-flex items-center gap-2 bg-[#fab818] hover:bg-[#e5a510] text-slate-950 font-black px-6 py-3.5 rounded-full shadow-lg transition-all hover:-translate-y-0.5"
+              >
+                <span>عرض كارت المنيو الأصلي</span>
+              </button>
             </div>
 
             {/* Bottom Text */}
@@ -450,6 +430,41 @@ export function MixerExperienceCTA() {
 
         </div>
       </div>
+
+      {/* Lightbox Modal for Full menu.png */}
+      {showMenuModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4"
+          onClick={() => setShowMenuModal(false)}
+        >
+          <div
+            className="relative max-w-4xl w-full max-h-[90vh] bg-slate-900 rounded-3xl overflow-hidden shadow-2xl border border-white/20 flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-slate-900/90">
+              <h3 className="text-white font-black text-lg font-cairo flex items-center gap-2">
+                <span>كارت المنيو الأصلي - الخلاط سوهاج</span>
+              </h3>
+              <button
+                onClick={() => setShowMenuModal(false)}
+                className="w-10 h-10 rounded-full bg-white/10 text-white hover:bg-white/20 flex items-center justify-center transition-colors"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            {/* Modal Content - Scrollable high-res image */}
+            <div className="overflow-auto p-4 flex justify-center bg-black/60 min-h-[400px]">
+              <img
+                src="/menu.png"
+                alt="كارت المنيو الأصلي"
+                className="max-w-full h-auto rounded-xl shadow-2xl object-contain"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

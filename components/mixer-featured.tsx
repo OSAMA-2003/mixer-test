@@ -2,14 +2,17 @@
 
 import React, { useState, useRef, useCallback, useEffect, useLayoutEffect } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
+import { useCart } from "@/context/CartContext";
 import {
-  Sparkles,
+
   ChevronLeft,
   ChevronRight,
   Plus,
   Check,
   ShoppingBag,
 } from "lucide-react";
+import Link from "next/link";
 
 // Safe isomorphic layout effect
 const useIsoLayoutEffect =
@@ -93,6 +96,7 @@ interface MixerFeaturedProps {
 
 export default function MixerFeatured({ activeCategory, onAddToCart }: MixerFeaturedProps) {
   const [addedId, setAddedId] = useState<string | null>(null);
+  const { addToCart } = useCart();
 
   const filteredDishes =
     activeCategory === "all"
@@ -100,6 +104,7 @@ export default function MixerFeatured({ activeCategory, onAddToCart }: MixerFeat
       : DISHES.filter((d) => d.category === activeCategory);
 
   const handleAdd = (dish: MenuItem) => {
+    addToCart(dish);
     if (onAddToCart) onAddToCart(dish);
     setAddedId(dish.id);
     setTimeout(() => setAddedId(null), 1200);
@@ -118,19 +123,25 @@ export default function MixerFeatured({ activeCategory, onAddToCart }: MixerFeat
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* Section Header */}
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 text-[#fab818] mb-2 font-bold text-xs sm:text-sm tracking-wider uppercase bg-white/10 px-4 py-1.5 rounded-full border border-white/10 backdrop-blur-md">
-            <Sparkles className="w-4 h-4 text-[#fab818]" />
-            <span>مختارات الخلاط الحصرية</span>
-            <Sparkles className="w-4 h-4 text-[#fab818]" />
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center mb-10"
+        >
+          <div className="mb-4 flex items-center justify-center gap-3">
+            <span className="h-px w-8 sm:w-12 bg-[#fab818]/40" />
+            <span className="text-xs sm:text-sm font-black tracking-widest text-[#fab818]">
+              مختارات الخلاط الحصرية
+            </span>
+            <span className="h-px w-8 sm:w-12 bg-[#fab818]/40" />
           </div>
           <h2 className="text-3xl sm:text-5xl font-black tracking-tight font-cairo">
             أطباق ومشروبات مميزة
           </h2>
-          <p className="text-sm sm:text-base text-cyan-100/80 mt-2 font-medium max-w-xl mx-auto">
-            تصفح كروت الـ 3D Coverflow واستمتع بأشهر خلات الخلاط في سوهاج.
-          </p>
-        </div>
+
+        </motion.div>
 
         {/* 3D Coverflow Carousel Section */}
         <CoverflowDishCarousel
@@ -151,12 +162,14 @@ export default function MixerFeatured({ activeCategory, onAddToCart }: MixerFeat
 
         {/* Bottom Call-to-Action */}
         <div className="mt-14 text-center">
-          <button
+          <Link
+            href="/menu"
             className="inline-flex items-center gap-3 bg-[#fab818] hover:bg-[#e5a510] text-slate-950 font-black text-base sm:text-lg px-8 py-3.5 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all"
           >
             <ShoppingBag className="w-5 h-5" />
-            <span>باقي المنيو</span>
-          </button>
+            <span>عرض المنيو كامل</span>
+          </Link>
+
         </div>
 
       </div>

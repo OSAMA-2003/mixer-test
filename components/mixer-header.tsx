@@ -2,18 +2,20 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ShoppingCart, Menu, X } from "lucide-react";
+import { useCart } from "@/context/CartContext";
 
 interface MixerHeaderProps {
   isVisible?: boolean;
 }
 
 const navItems = [
-  { label: "الرئيسية", href: "#hero-cinematic" },
-  { label: "المنيو", href: "#menu" },
-  { label: "فروعنا", href: "#branches" },
-  { label: "عن الخلاط", href: "#about" },
-  { label: "تواصل معنا", href: "#contact" },
+  { label: "الرئيسية", href: "/" },
+  { label: "المنيو  ", href: "/menu" },
+  { label: "فروعنا", href: "/#branches" },
+  { label: "عن الخلاط", href: "/#about" },
+  { label: "تواصل معنا", href: "/#contact" },
 ];
 
 export default function MixerHeader({
@@ -21,6 +23,7 @@ export default function MixerHeader({
 }: MixerHeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { totalItems } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,7 +46,7 @@ export default function MixerHeader({
           : "-translate-y-full opacity-0 pointer-events-none"
         }
         ${scrolled
-          ? "bg-white/95 backdrop-blur-xl border-b border-black/[0.06]"
+          ? "bg-white/95 backdrop-blur-xl border-b border-black/[0.06] shadow-sm"
           : "bg-white/80 backdrop-blur-md"
         }
       `}
@@ -56,26 +59,24 @@ export default function MixerHeader({
           ${scrolled ? "h-[70px]" : "h-[82px]"}
         `}
       >
-        {/* LEFT — Order */}
-
-
-        <div
+        {/* LEFT — Logo */}
+        <Link
+          href="/"
           className="
               relative
-              w-28 h-28
+              w-24 h-24 sm:w-28 sm:h-28
               flex items-center justify-center
-            
             "
         >
           <Image
             src="/logo.png"
             alt="الخلاط سوهاج"
-            width={150}
-            height={150}
+            width={140}
+            height={140}
             className="object-contain"
             priority
           />
-        </div>
+        </Link>
 
 
         {/* CENTER — Navigation */}
@@ -89,7 +90,7 @@ export default function MixerHeader({
           "
         >
           {navItems.map((item, index) => (
-            <a
+            <Link
               key={item.href}
               href={item.href}
               className={`
@@ -120,25 +121,17 @@ export default function MixerHeader({
               `}
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
-        {/* RIGHT — Brand */}
-        <a
-          href="#hero-cinematic"
-          className="flex items-center gap-3 group"
-        >
-
-
-          {/* Logo */}
-
-
-          <div className="flex items-center">
-            <a
-              href="#menu"
-              className="
+        {/* RIGHT — Cart & Order Button */}
+        <div className="flex items-center gap-3">
+          <Link
+            href="/cart"
+            className="
               group
+              relative
               inline-flex items-center gap-2.5
               bg-[#008ba3]
               hover:bg-[#00798f]
@@ -152,28 +145,34 @@ export default function MixerHeader({
               hover:-translate-y-0.5
               shadow-[0_6px_20px_rgba(0,139,163,0.18)]
             "
-            >
-              <ShoppingCart
-                className="
-                w-[16px] h-[16px]
+          >
+            <ShoppingCart
+              className="
+                w-[17px] h-[17px]
                 transition-transform duration-300
-                group-hover:-translate-x-0.5
+                group-hover:scale-110
               "
-              />
+            />
 
-              <span>اطلب دلوقتي</span>
-            </a>
-          </div>
+            <span>سلة الطلبات</span>
+
+            {totalItems > 0 && (
+              <span className="flex items-center justify-center min-w-[22px] h-[22px] px-1.5 rounded-full bg-[#fab818] text-slate-950 font-black text-xs shadow-md animate-pulse">
+                {totalItems}
+              </span>
+            )}
+          </Link>
+        </div>
 
 
-          {/* Mobile menu button */}
-          <button
-            type="button"
-            onClick={(e) => {
-              e.preventDefault();
-              setMobileOpen(!mobileOpen);
-            }}
-            className="
+        {/* Mobile menu button */}
+        <button
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            setMobileOpen(!mobileOpen);
+          }}
+          className="
               md:hidden
               mr-1
               w-10 h-10
@@ -185,18 +184,17 @@ export default function MixerHeader({
               hover:border-[#008ba3]
               hover:text-[#008ba3]
             "
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? (
-              <X className="w-[19px] h-[19px]" />
-            ) : (
-              <Menu className="w-[19px] h-[19px]" />
-            )}
-          </button>
-        </a>
+          aria-label="Toggle menu"
+        >
+          {mobileOpen ? (
+            <X className="w-[19px] h-[19px]" />
+          ) : (
+            <Menu className="w-[19px] h-[19px]" />
+          )}
+        </button>
       </div>
 
-      {/* MOBILE MENU */}
+
       <div
         className={`
           md:hidden
@@ -219,7 +217,7 @@ export default function MixerHeader({
         >
           <nav className="flex flex-col">
             {navItems.map((item, index) => (
-              <a
+              <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileOpen(false)}
@@ -248,12 +246,12 @@ export default function MixerHeader({
                     group-hover:opacity-100
                   "
                 />
-              </a>
+              </Link>
             ))}
 
             {/* Mobile CTA */}
-            <a
-              href="#menu"
+            <Link
+              href="/cart"
               onClick={() => setMobileOpen(false)}
               className="
                 mt-4
@@ -268,8 +266,8 @@ export default function MixerHeader({
               "
             >
               <ShoppingCart className="w-4 h-4" />
-              اطلب دلوقتي
-            </a>
+              <span>سلة الطلبات ({totalItems})</span>
+            </Link>
           </nav>
         </div>
       </div>

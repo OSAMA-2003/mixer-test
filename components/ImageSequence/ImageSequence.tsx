@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState, useCallback } from "react";
+import NextImage from "next/image";
 import { useScroll, useSpring, motion, AnimatePresence } from "framer-motion";
 
 export interface ImageSequenceProps {
@@ -27,7 +28,7 @@ export default function ImageSequence({
   nativeWidth = 1280,
   nativeHeight = 720,
   containerHeight = "h-[420vh]",
-  loadingText = "استنى ثانية... جاري تحضير الخلاط 🍹",
+  loadingText = "استنى ثانية... جاري تحضير الخلاط ",
   className = "",
   onSequenceFinish,
 }: ImageSequenceProps) {
@@ -37,7 +38,7 @@ export default function ImageSequence({
   // Performance cache: stores loaded HTMLImageElement instances
   const imageCache = useRef<Map<number, HTMLImageElement>>(new Map());
   const pendingRequests = useRef<Set<number>>(new Set());
-  
+
   // Animation frame and render state
   const rafId = useRef<number | null>(null);
   const currentFrameIndexRef = useRef<number>(0);
@@ -70,7 +71,7 @@ export default function ImageSequence({
       const url = getFrameUrl(index);
 
       return new Promise<HTMLImageElement | null>((resolve) => {
-        const img = new Image();
+        const img = new window.Image();
         img.src = url;
 
         img.onload = async () => {
@@ -106,7 +107,7 @@ export default function ImageSequence({
     (targetIndex: number) => {
       const canvas = canvasRef.current;
       if (!canvas) return;
-      const ctx = canvas.getContext("2d", { alpha: false });
+      const ctx = canvas.getContext("2d", { alpha: true });
       if (!ctx) return;
 
       const clampedIndex = Math.min(Math.max(targetIndex, 0), totalFrames - 1);
@@ -313,35 +314,84 @@ export default function ImageSequence({
           className="w-full h-full object-cover block will-change-transform"
         />
 
-        {/* Minimal, elegant Egyptian loading state ("استنى ثانية...") */}
+        {/* Sleek Logo Centered Loader with Dynamic Progress Circle (White Background) */}
         <AnimatePresence>
           {!isInitialReady && (
             <motion.div
               initial={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.6, ease: "easeInOut" }}
-              className="absolute inset-0 z-40 flex flex-col items-center justify-center bg-[#070b0e] text-white select-none px-4 text-center"
+              className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-white text-gray-900 select-none px-4 text-center"
             >
-              <div className="relative mb-6">
-                <div className="w-16 h-16 rounded-full border-3 border-amber-500/20 border-t-amber-400 animate-spin" />
-                <span className="absolute inset-0 flex items-center justify-center text-xl">
-                  🍹
-                </span>
+              {/* Radial glow background */}
+              <div className="absolute w-72 h-72 rounded-full bg-[#fab818]/15 blur-3xl pointer-events-none" />
+
+              {/* Circular Loader with Centered Logo */}
+              <div className="relative mb-6 w-44 h-44 sm:w-52 sm:h-52 flex items-center justify-center">
+
+                {/* Outer Ambient Glowing Spin Ring */}
+                <div className="absolute inset-0 rounded-full border-2 border-dashed border-[#fab818]/40 animate-[spin_12s_linear_infinite]" />
+                <div className="absolute inset-2 rounded-full border border-[#008ba3]/25 animate-[spin_8s_linear_infinite_reverse]" />
+
+                {/* SVG Progress Circle */}
+                <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 160 160">
+                  <defs>
+                    <linearGradient id="loader-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#fab818" />
+                      <stop offset="100%" stopColor="#008ba3" />
+                    </linearGradient>
+                  </defs>
+
+                  {/* Track Circle */}
+                  <circle
+                    cx="80"
+                    cy="80"
+                    r="72"
+                    fill="transparent"
+                    stroke="rgba(0, 0, 0, 0.08)"
+                    strokeWidth="6"
+                  />
+
+                  {/* Progress Circle */}
+                  <circle
+                    cx="80"
+                    cy="80"
+                    r="72"
+                    fill="transparent"
+                    stroke="url(#loader-gradient)"
+                    strokeWidth="6"
+                    strokeLinecap="round"
+                    strokeDasharray={452.39}
+                    strokeDashoffset={452.39 - (452.39 * loadPercent) / 100}
+                    className="transition-all duration-300 ease-out"
+                  />
+                </svg>
+
+                {/* Centered Brand Logo */}
+                <div className="relative z-10 w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center p-2 rounded-full bg-white border border-gray-100 shadow-[0_10px_35px_rgba(0,0,0,0.08)]">
+                  <NextImage
+                    src="/logo.png"
+                    alt="الخلاط"
+                    width={100}
+                    height={100}
+                    className="w-full h-full object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.1)] animate-pulse"
+                    priority
+                  />
+                </div>
               </div>
-              <p className="text-lg sm:text-xl font-bold font-cairo text-amber-300 mb-2">
+
+              {/* Egyptian Loading Text */}
+              <p className="text-lg sm:text-xl font-bold font-cairo text-[#015f70] mb-2 tracking-wide">
                 {loadingText}
               </p>
-              <div className="w-48 bg-slate-800/80 rounded-full h-1.5 overflow-hidden border border-slate-700/50">
-                <motion.div
-                  className="bg-gradient-to-r from-amber-500 to-teal-400 h-full rounded-full"
-                  initial={{ width: 0 }}
-                  animate={{ width: `${loadPercent}%` }}
-                  transition={{ ease: "easeOut" }}
-                />
+
+              {/* Progress Percentage Badge */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#008ba3]/10 border border-[#008ba3]/20 shadow-sm">
+                <span className="h-2 w-2 rounded-full bg-[#fab818] animate-ping" />
+                <span className="text-xs font-mono font-bold text-[#015f70]">
+                  {loadPercent}%
+                </span>
               </div>
-              <span className="mt-2 text-xs font-mono text-slate-400">
-                {loadPercent}%
-              </span>
             </motion.div>
           )}
         </AnimatePresence>

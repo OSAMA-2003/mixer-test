@@ -77,3 +77,39 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+/* Infinite Marquee Animations */
+@keyframes marqueeRtl {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marqueeLtr {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.animate-marquee-rtl {
+  display: flex;
+  width: max-content;
+  animation: marqueeRtl 30s linear infinite;
+}
+
+.animate-marquee-ltr {
+  display: flex;
+  width: max-content;
+  animation: marqueeLtr 34s linear infinite;
+}
+
+.animate-marquee-rtl:hover,
+.animate-marquee-ltr:hover {
+  animation-play-state: paused;
+}

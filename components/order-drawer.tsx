@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { X, Trash2, Plus, Minus, ShoppingBag, CheckCircle, Sparkles, ArrowRight } from "lucide-react";
+import { X, Trash2, Plus, Minus, ShoppingBag, CheckCircle, ArrowRight } from "lucide-react";
 import { BlendItem } from "./blends-showcase";
 
 export interface CartItem {
@@ -134,7 +134,6 @@ export default function OrderDrawer({
               </div>
             ) : cart.length === 0 ? (
               <div className="py-16 text-center flex flex-col items-center">
-                <span className="text-5xl mb-4">🥤</span>
                 <h4 className="text-lg font-bold text-white mb-2">Your blender pitcher is empty</h4>
                 <p className="text-slate-400 text-xs max-w-xs mb-6">
                   Choose one of our signature cold-pressed fruit blends from the menu to start!
@@ -155,9 +154,11 @@ export default function OrderDrawer({
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-xl">
-                          {item.blend.emoji}
-                        </div>
+                        {item.blend.emoji && (
+                          <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-xl">
+                            {item.blend.emoji}
+                          </div>
+                        )}
                         <div>
                           <div className="font-bold text-white text-sm">
                             {item.blend.name}
@@ -183,7 +184,7 @@ export default function OrderDrawer({
                     {/* Boosters tags */}
                     <div className="pt-2 border-t border-white/5">
                       <div className="text-[11px] font-semibold text-slate-400 mb-1.5 flex items-center gap-1">
-                        <Sparkles className="w-3 h-3 text-amber-400" /> Functional Boosters:
+                        Functional Boosters:
                       </div>
                       <div className="flex flex-wrap gap-1">
                         {AVAILABLE_BOOSTERS.map((booster) => {

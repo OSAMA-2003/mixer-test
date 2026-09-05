@@ -11,8 +11,9 @@ import MixerStats from "@/components/mixer-stats";
 import { MixerExperienceCTA, MixerRingsDivider } from "@/components/mixer-spotlight";
 import MixerBranches from "@/components/mixer-branches";
 import MixerFooter from "@/components/mixer-footer";
-import { Heart, ChevronDown, Sparkles } from "lucide-react";
+import { Heart, ChevronDown } from "lucide-react";
 import Delivery from "@/components/delivery";
+import Gallery from "@/components/gallery";
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -57,6 +58,8 @@ export default function Home() {
 
       {/* 8. Live Statistics Bar */}
       <MixerStats />
+
+      <Gallery />
 
       {/* 9. Branches in Egypt */}
       <MixerBranches />

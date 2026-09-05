@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { ShoppingBag, Sparkles, Menu, X, PhoneCall } from "lucide-react";
+import { ShoppingBag, Menu, X, PhoneCall } from "lucide-react";
 
 interface NavbarProps {
   cartCount: number;
@@ -98,7 +98,6 @@ export default function Navbar({ cartCount, onOpenCart }: NavbarProps) {
             href="#blends"
             className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-black font-bold text-sm shadow-lg shadow-orange-500/25 transition-all transform hover:scale-105 active:scale-95"
           >
-            <Sparkles className="w-4 h-4" />
             <span>Order Fresh</span>
           </a>
 
@@ -131,7 +130,6 @@ export default function Navbar({ cartCount, onOpenCart }: NavbarProps) {
             onClick={() => setMobileMenuOpen(false)}
             className="mt-2 flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-black font-bold text-sm"
           >
-            <Sparkles className="w-4 h-4" />
             <span>Order Fresh Blend</span>
           </a>
         </div>

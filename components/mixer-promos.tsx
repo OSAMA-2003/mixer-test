@@ -34,6 +34,20 @@ export default function MixerPromos() {
       className="relative overflow-hidden bg-white py-20 sm:py-28 lg:py-32"
       dir="rtl"
     >
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {/* Main glow */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] lg:w-[700px] lg:h-[700px] rounded-full bg-emerald-300/20 blur-[130px]" />
+
+        {/* Left glow */}
+        <div className="absolute left-[-150px] top-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-lime-200/30 blur-[110px]" />
+
+        {/* Right glow */}
+        <div className="absolute right-[-150px] top-1/3 w-[400px] h-[400px] rounded-full bg-teal-200/25 blur-[110px]" />
+
+        {/* Subtle grid */}
+        <div className="absolute inset-0 opacity-[0.035] bg-[radial-gradient(#111_1px,transparent_1px)] [background-size:28px_28px]" />
+      </div>
+
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
         {/* ================= HEADER ================= */}
@@ -57,9 +71,13 @@ export default function MixerPromos() {
           }}
           className="mb-12 flex flex-col items-center text-center sm:mb-16"
         >
-          <span className="mb-4 text-[10px] font-black tracking-[0.3em] text-gray-400 sm:text-[11px]">
-            FROM THE MIXER
-          </span>
+          <div className="mb-4 flex items-center justify-center gap-3">
+            <span className="h-px w-8 sm:w-12 bg-[#008ba3]/30" />
+            <span className="text-xs sm:text-sm font-black tracking-widest text-[#008ba3]">
+              عروض ومنتجات الخلاط
+            </span>
+            <span className="h-px w-8 sm:w-12 bg-[#008ba3]/30" />
+          </div>
 
           <h2 className="text-4xl font-black leading-tight tracking-tight text-gray-950 sm:text-5xl lg:text-6xl">
             اختار اللي على{" "}

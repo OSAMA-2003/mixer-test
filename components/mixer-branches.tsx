@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import {
   MapPin,
   Clock,
@@ -35,10 +36,20 @@ export default function MixerBranches() {
       <div className="relative z-10 mx-auto max-w-7xl">
 
         {/* Header */}
-        <div className="mx-auto mb-14 max-w-2xl space-y-3 text-center sm:mb-16">
-          <span className="inline-block rounded-full border border-brand-yellow/30 bg-brand-yellow/10 px-4 py-1.5 text-sm font-bold text-brand-yellow backdrop-blur-md">
-            مستنيينك تنورنا
-          </span>
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="mx-auto mb-14 max-w-2xl space-y-3 text-center sm:mb-16"
+        >
+          <div className="mb-4 flex items-center justify-center gap-3">
+            <span className="h-px w-8 sm:w-12 bg-[#008ba3]/30" />
+            <span className="text-xs sm:text-sm font-black tracking-widest text-[#008ba3]">
+              فروعنا في سوهاج
+            </span>
+            <span className="h-px w-8 sm:w-12 bg-[#008ba3]/30" />
+          </div>
 
           <h2 className="font-cairo text-3xl font-black text-black sm:text-5xl">
             فروع <span className="text-brand-yellow">الخلاط</span>
@@ -47,7 +58,7 @@ export default function MixerBranches() {
           <p className="mx-auto max-w-xl text-sm leading-7 text-black/80 sm:text-base font-medium">
             مكانك جاهز.. اقعد براحتك، اختار اللي على مزاجك واستمتع بتجربة الخلاط.
           </p>
-        </div>
+        </motion.div>
 
         {/* Branch */}
         <div className="mx-auto max-w-5xl">
@@ -82,7 +93,7 @@ export default function MixerBranches() {
             </div>
 
             {/* Content */}
-            <div className="flex flex-col justify-center p-6 sm:p-10 lg:p-12 bg-slate-900/40 backdrop-blur-md">
+            <div className="flex flex-col justify-center p-6 sm:p-10 lg:p-12 bg-[#004754]">
 
               <div className="space-y-8">
 
