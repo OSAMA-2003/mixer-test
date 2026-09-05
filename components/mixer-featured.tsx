@@ -386,7 +386,7 @@ function CoverflowDishCarousel({
               type="button"
               aria-label="Previous slide"
               onClick={() => nudge(-1)}
-              className="absolute left-1 sm:left-4 top-1/2 z-[200] -translate-y-1/2 rounded-2xl bg-slate-900/80 hover:bg-[#fab818] p-3 text-white hover:text-slate-950 border border-white/20 backdrop-blur-md transition-all duration-300 hover:scale-110 active:scale-95 shadow-xl cursor-pointer"
+              className="hidden sm:flex absolute left-1 sm:left-4 top-1/2 z-[200] -translate-y-1/2 rounded-2xl bg-slate-900/80 hover:bg-[#fab818] p-3 text-white hover:text-slate-950 border border-white/20 backdrop-blur-md transition-all duration-300 hover:scale-110 active:scale-95 shadow-xl cursor-pointer"
             >
               <ChevronLeft className="w-6 h-6 stroke-[2.5]" />
             </button>
@@ -395,7 +395,7 @@ function CoverflowDishCarousel({
               type="button"
               aria-label="Next slide"
               onClick={() => nudge(1)}
-              className="absolute right-1 sm:right-4 top-1/2 z-[200] -translate-y-1/2 rounded-2xl bg-slate-900/80 hover:bg-[#fab818] p-3 text-white hover:text-slate-950 border border-white/20 backdrop-blur-md transition-all duration-300 hover:scale-110 active:scale-95 shadow-xl cursor-pointer"
+              className="hidden sm:flex absolute right-1 sm:right-4 top-1/2 z-[200] -translate-y-1/2 rounded-2xl bg-slate-900/80 hover:bg-[#fab818] p-3 text-white hover:text-slate-950 border border-white/20 backdrop-blur-md transition-all duration-300 hover:scale-110 active:scale-95 shadow-xl cursor-pointer"
             >
               <ChevronRight className="w-6 h-6 stroke-[2.5]" />
             </button>
@@ -534,9 +534,9 @@ function CoverflowDishCarousel({
         </div>
       </div>
 
-      {/* Pagination Dots (No caption as requested) */}
+      {/* Pagination Dots */}
       {showPagination && count > 1 && (
-        <div className="mt-4 flex items-center justify-center gap-2 z-20 relative">
+        <div className="mt-4 hidden sm:flex items-center justify-center gap-2 z-20 relative">
           {dishes.map((_, index) => (
             <button
               key={index}

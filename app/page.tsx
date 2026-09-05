@@ -12,6 +12,7 @@ import { MixerExperienceCTA, MixerRingsDivider } from "@/components/mixer-spotli
 import MixerBranches from "@/components/mixer-branches";
 import MixerFooter from "@/components/mixer-footer";
 import { Heart, ChevronDown, Sparkles } from "lucide-react";
+import Delivery from "@/components/delivery";
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -59,6 +60,8 @@ export default function Home() {
 
       {/* 9. Branches in Egypt */}
       <MixerBranches />
+
+      <Delivery />
 
       {/* 10. Official Footer */}
       <MixerFooter />

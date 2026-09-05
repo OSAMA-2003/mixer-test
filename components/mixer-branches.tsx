@@ -1,123 +1,164 @@
 "use client";
 
 import React from "react";
-import { MapPin, Phone, Clock, Sparkles } from "lucide-react";
+import {
+  MapPin,
+  Clock,
+  Phone,
+  ArrowLeft,
+} from "lucide-react";
 
 export default function MixerBranches() {
-  const branches = [
-    {
-      name: "فرع شارع 15 (الفرع الرئيسي)",
-      area: "شارع 15 - سوهاج",
-      address: "تقاطع شارع 15 مع شارع الجمهورية، بجوار كوبري أخميم، سوهاج",
-      phone: "012 3456 7890",
-      hours: "يومياً من 9:00 ص إلى 2:30 ص",
-    },
-    {
-      name: "فرع كورنيش النيل الشرقي",
-      area: "الكورنيش - سوهاج",
-      address: "ممشى كورنيش النيل الشرقي، أمام نادي نقابة المهندسين، سوهاج",
-      phone: "012 3456 7891",
-      hours: "يومياً من 10:00 ص إلى 3:00 ص",
-    },
-    {
-      name: "فرع ميدان الثقافة",
-      area: "الثقافة - سوهاج",
-      address: "ميدان الثقافة، برج النيل، طريق أسيوط - سوهاج",
-      phone: "010 8800 1122",
-      hours: "يومياً من 9:00 ص إلى 2:00 ص",
-    },
-    {
-      name: "فرع حي سيتي",
-      area: "سيتي - سوهاج",
-      address: "حي سيتي، أمام مجمع المحاكم، شارع الشهيد عبد المنعم رياض، سوهاج",
-      phone: "010 8800 1133",
-      hours: "يومياً من 9:00 ص إلى 2:00 ص",
-    },
-    {
-      name: "فرع سوهاج الجديدة",
-      area: "الكوامل - سوهاج الجديدة",
-      address: "المركز التجاري والخدمي الرئيسي، مدينة سوهاج الجديدة",
-      phone: "011 2233 4455",
-      hours: "يومياً من 9:00 ص إلى 1:30 ص",
-    },
-    {
-      name: "فرع أخميم",
-      area: "أخميم - سوهاج",
-      address: "شارع الفاتح الرئيسي، بجوار ميدان الساعة، أخميم، سوهاج",
-      phone: "011 2233 4466",
-      hours: "يومياً من 9:00 ص إلى 2:00 ص",
-    },
-  ];
+
 
   return (
-    <section id="branches" className="py-20 bg-white" dir="rtl">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 text-[#008ba3] font-black text-sm mb-2 bg-[#eef8fa] px-4 py-1.5 rounded-full">
-            <MapPin className="w-4 h-4" />
-            <span>في خدمتكم بجميع أنحاء سوهاج</span>
-          </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-gray-900 font-cairo">
-            فروع <span className="text-[#008ba3]">الخلاط</span> في سوهاج
+    <section
+      id="branches"
+      dir="rtl"
+      className="relative overflow-hidden bg-white px-4 pb-24 pt-16 text-white sm:px-6 lg:px-8 lg:pb-32"
+    >
+
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {/* Main glow */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] lg:w-[700px] lg:h-[700px] rounded-full bg-emerald-300/20 blur-[130px]" />
+
+        {/* Left glow */}
+        <div className="absolute left-[-150px] top-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-lime-200/30 blur-[110px]" />
+
+        {/* Right glow */}
+        <div className="absolute right-[-150px] top-1/3 w-[400px] h-[400px] rounded-full bg-teal-200/25 blur-[110px]" />
+
+        {/* Subtle grid */}
+        <div className="absolute inset-0 opacity-[0.035] bg-[radial-gradient(#111_1px,transparent_1px)] [background-size:28px_28px]" />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-7xl">
+
+        {/* Header */}
+        <div className="mx-auto mb-14 max-w-2xl space-y-3 text-center sm:mb-16">
+          <span className="inline-block rounded-full border border-brand-yellow/30 bg-brand-yellow/10 px-4 py-1.5 text-sm font-bold text-brand-yellow backdrop-blur-md">
+            مستنيينك تنورنا
+          </span>
+
+          <h2 className="font-cairo text-3xl font-black text-black sm:text-5xl">
+            فروع <span className="text-brand-yellow">الخلاط</span>
           </h2>
-          <p className="text-gray-600 text-sm sm:text-base mt-3 leading-relaxed">
-            من قلب صعيد مصر.. زورنا في أقرب فرع ليك في محافظة سوهاج واستمتع بأحلى كوباية عصير فريش وسموذي وموخيتو، أو اطلب دليفري سريع لحد باب بيتك!
+
+          <p className="mx-auto max-w-xl text-sm leading-7 text-black/80 sm:text-base font-medium">
+            مكانك جاهز.. اقعد براحتك، اختار اللي على مزاجك واستمتع بتجربة الخلاط.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {branches.map((b, idx) => (
-            <div
-              key={idx}
-              className="p-6 rounded-3xl bg-[#eef8fa] border border-cyan-100/80 hover:border-[#008ba3]/50 hover:shadow-xl transition-all text-right flex flex-col justify-between group hover:-translate-y-1 duration-300"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-2">
-                    <span className="w-8 h-8 rounded-full bg-[#008ba3] text-white flex items-center justify-center text-sm font-bold shadow-sm">
-                      {idx + 1}
-                    </span>
-                    <span className="text-xs font-bold text-[#008ba3] bg-white px-2.5 py-1 rounded-full border border-cyan-200">
-                      {b.area}
-                    </span>
-                  </div>
-                  <h3 className="font-extrabold text-base sm:text-lg text-[#004959] font-cairo">
-                    {b.name}
-                  </h3>
-                </div>
+        {/* Branch */}
+        <div className="mx-auto max-w-5xl">
+          <div className="group grid overflow-hidden rounded-[2.5rem] border border-white/15 bg-white/10 backdrop-blur-xl shadow-[0_20px_70px_rgba(0,0,0,0.3)] md:grid-cols-2">
 
-                <p className="text-gray-700 text-xs sm:text-sm mb-4 leading-relaxed flex items-start gap-2 justify-start mt-3">
-                  <MapPin className="w-4 h-4 text-[#008ba3] shrink-0 mt-0.5" />
-                  <span>{b.address}</span>
-                </p>
+            {/* Image */}
+            <div className="relative min-h-[300px] overflow-hidden sm:min-h-[400px] md:min-h-[500px]">
+              <img
+                src="/branch.png"
+                alt="فرع الخلاط في سوهاج"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent" />
+
+              {/* Branch badge */}
+              <div className="absolute right-5 top-5 rounded-full border border-brand-yellow/40 bg-slate-950/70 px-4 py-2 text-xs font-black text-brand-yellow backdrop-blur-md shadow-lg">
+                فرع سوهاج
               </div>
 
-              <div className="pt-4 border-t border-cyan-200/60 flex flex-col gap-2.5 text-xs text-gray-600">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1 text-gray-700 font-bold">
-                    <Phone className="w-3.5 h-3.5 text-[#008ba3]" />
-                    <span>دليفري سوهاج:</span>
-                  </div>
-                  <a
-                    href={`tel:${b.phone.replace(/\s+/g, '')}`}
-                    className="font-mono text-[#008ba3] hover:text-[#015f70] font-bold text-sm tracking-wide"
-                  >
-                    {b.phone}
-                  </a>
-                </div>
-                <div className="flex items-center justify-between text-gray-500">
-                  <div className="flex items-center gap-1">
-                    <Clock className="w-3.5 h-3.5 text-amber-500" />
-                    <span>مواعيد العمل:</span>
-                  </div>
-                  <span>{b.hours}</span>
-                </div>
+              {/* Bottom text */}
+              <div className="absolute bottom-6 right-6 left-6">
+                <span className="mb-1 block text-xs font-black tracking-widest text-brand-yellow/90">
+                  THE MIXER
+                </span>
+
+                <h3 className="font-cairo text-3xl font-black text-white sm:text-4xl">
+                  مكانك عندنا.
+                </h3>
               </div>
             </div>
-          ))}
-        </div>
 
+            {/* Content */}
+            <div className="flex flex-col justify-center p-6 sm:p-10 lg:p-12 bg-slate-900/40 backdrop-blur-md">
+
+              <div className="space-y-8">
+
+                {/* Title */}
+                <div>
+                  <span className="mb-2 block text-xs font-black tracking-[0.2em] text-brand-yellow">
+                    OUR BRANCH
+                  </span>
+
+                  <h3 className="font-cairo text-3xl font-black text-white sm:text-4xl">
+                    الخلاط — سوهاج
+                  </h3>
+
+                  <div className="mt-4 flex items-start gap-3 text-sm leading-7 text-white/85">
+                    <MapPin className="mt-1 h-5 w-5 shrink-0 text-brand-yellow" />
+
+                    <span className="font-medium">
+                      سوهاج الجديدة — مول ريتاج 1
+                    </span>
+                  </div>
+                </div>
+
+                {/* Info */}
+                <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
+
+                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-md hover:border-brand-yellow/40 transition-colors">
+                    <Clock className="mb-3 h-5 w-5 text-brand-yellow" />
+
+                    <span className="block text-xs font-medium text-white/60">
+                      مواعيد العمل
+                    </span>
+
+                    <span className="mt-1 block text-sm font-bold leading-6 text-white">
+                      ١٢ ظهراً — ٢ بعد منتصف الليل
+                    </span>
+                  </div>
+
+                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-md hover:border-brand-yellow/40 transition-colors">
+                    <Phone className="mb-3 h-5 w-5 text-brand-yellow" />
+
+                    <span className="block text-xs font-medium text-white/60">
+                      الدليفري والحجز
+                    </span>
+
+                    <a
+                      href="tel:01007375151"
+                      dir="ltr"
+                      className="mt-1 block w-fit text-sm font-black text-brand-yellow transition-colors hover:text-white"
+                    >
+                      01007375151
+                    </a>
+                  </div>
+
+                </div>
+
+                {/* CTA */}
+                <a
+                  href="https://maps.app.goo.gl/4fHmdNxktjSLwUb39"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group/btn flex w-full items-center justify-center gap-3 rounded-2xl bg-brand-yellow px-6 py-4 text-sm font-black text-slate-950 shadow-xl shadow-brand-yellow/15 transition-all duration-300 hover:-translate-y-1 hover:bg-brand-yellow-hover hover:shadow-2xl hover:shadow-brand-yellow/30"
+                >
+                  <MapPin className="h-5 w-5 text-slate-950" />
+
+                  <span>
+                    تعالى لنا على الخريطة
+                  </span>
+
+                  <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover/btn:-translate-x-1" />
+                </a>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
       </div>
     </section>
   );
