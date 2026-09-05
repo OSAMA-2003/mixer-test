@@ -2,76 +2,415 @@
 
 import React from "react";
 import Image from "next/image";
-import { Sparkles, Flame } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowLeft } from "lucide-react";
+
+const promos = [
+  {
+    image: "/promo-1.png",
+    eyebrow: "SWEET MOOD",
+    title: "لما نفسك",
+    highlight: "تتدلع.",
+    description:
+      "طواجن، حلويات وآيس كريم متظبطين بكل التفاصيل اللي تخلي آخر لقمة أحلى من أولها.",
+    button: "شوف الحلويات",
+    theme: "dessert",
+  },
+  {
+    image: "/promo-2.png",
+    eyebrow: "FRESH MOOD",
+    title: "انتعاش",
+    highlight: "على مزاجك.",
+    description:
+      "فواكه طازة، قشطة وعسل.. خلطة خفيفة ومنعشة تتظبط على مودك.",
+    button: "شوف الفواكه",
+    theme: "fresh",
+  },
+];
 
 export default function MixerPromos() {
   return (
-    <section className="py-16 bg-white" dir="rtl">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          
-          {/* Promo 1: شيكات وميلك شيك */}
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-amber-700 via-amber-600 to-yellow-500 p-8 text-white shadow-xl flex flex-col justify-between min-h-[300px] group">
-            <div className="relative z-10 max-w-[62%] text-right">
-              <div className="inline-flex items-center gap-1 bg-black/20 text-[#fab818] px-3 py-1 rounded-full text-xs font-bold mb-3">
-                <Flame className="w-3.5 h-3.5" />
-                <span>إدمان عشاق الشوكولاتة في سوهاج</span>
-              </div>
-              <h3 className="text-3xl sm:text-4xl font-black mb-2 font-cairo">
-                أوريو & كيت كات شيك
-              </h3>
-              <p className="text-white/95 text-xs sm:text-sm font-semibold mb-6 leading-relaxed">
-                غرقان شوكولاتة وآيس كريم فريش، تجربة تدوب في قلبك وتعدل مزاجك من أول رشفة!
-              </p>
-              <a
-                href="#menu"
-                className="inline-block bg-[#fab818] hover:bg-yellow-400 text-slate-900 font-black px-6 py-2.5 rounded-full shadow transition-all transform group-hover:scale-105 text-sm"
-              >
-                شوف المنيو
-              </a>
-            </div>
+    <section
+      className="relative overflow-hidden bg-white py-20 sm:py-28 lg:py-32"
+      dir="rtl"
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-            <div className="absolute -left-4 -bottom-4 w-48 sm:w-56 h-56 opacity-95 group-hover:scale-105 transition-transform duration-300 rounded-2xl overflow-hidden shadow-2xl">
-              <Image
-                src="/products/p2.jpg"
-                alt="أوريو شيك الخلاط سوهاج"
-                fill
-                className="object-cover"
+        {/* ================= HEADER ================= */}
+
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 25,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.3,
+          }}
+          transition={{
+            duration: 0.7,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+          className="mb-12 flex flex-col items-center text-center sm:mb-16"
+        >
+          <span className="mb-4 text-[10px] font-black tracking-[0.3em] text-gray-400 sm:text-[11px]">
+            FROM THE MIXER
+          </span>
+
+          <h2 className="text-4xl font-black leading-tight tracking-tight text-gray-950 sm:text-5xl lg:text-6xl">
+            اختار اللي على{" "}
+            <span className="text-[#008ba3]">مزاجك.</span>
+          </h2>
+
+          <p className="mt-4 max-w-xl text-sm font-medium leading-7 text-gray-500 sm:text-base">
+            من أول رشفة لآخر لقمة.. عندنا حاجة لكل مود.
+          </p>
+        </motion.div>
+
+        {/* ================= PROMO CARDS ================= */}
+
+        <div className="grid grid-cols-1 gap-7 lg:grid-cols-2 lg:gap-8">
+
+          {promos.map((promo, index) => (
+            <motion.article
+              key={promo.theme}
+              initial={{
+                opacity: 0,
+                y: 50,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              viewport={{
+                once: true,
+                amount: 0.2,
+              }}
+              transition={{
+                duration: 0.8,
+                delay: index * 0.12,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className={`
+                group
+                relative
+                flex
+                min-h-[570px]
+                flex-col
+                overflow-hidden
+                rounded-[2rem]
+                border
+                shadow-[0_25px_70px_rgba(0,0,0,0.10)]
+                transition-shadow
+                duration-500
+                hover:shadow-[0_35px_90px_rgba(0,0,0,0.16)]
+
+                lg:min-h-[500px]
+                lg:overflow-visible
+
+                ${promo.theme === "dessert"
+                  ? "border-[#6b3519]/20 bg-[#29150c]"
+                  : "border-[#008ba3]/20 bg-[#003f4b]"
+                }
+              `}
+            >
+
+              {/* ================= BACKGROUND ================= */}
+
+              <div
+                className={`
+                  pointer-events-none
+                  absolute
+                  inset-0
+                  overflow-hidden
+                  rounded-[2rem]
+
+                  ${promo.theme === "dessert"
+                    ? "bg-[radial-gradient(circle_at_85%_20%,rgba(250,184,24,0.18),transparent_35%)]"
+                    : "bg-[radial-gradient(circle_at_85%_20%,rgba(20,220,220,0.18),transparent_35%)]"
+                  }
+                `}
               />
-            </div>
-          </div>
 
-          {/* Promo 2: موخيتو ومنعشات الصيف */}
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-teal-700 via-[#008ba3] to-cyan-500 p-8 text-white shadow-xl flex flex-col justify-between min-h-[300px] group">
-            <div className="relative z-10 max-w-[62%] text-right">
-              <div className="inline-flex items-center gap-1 bg-black/20 text-cyan-200 px-3 py-1 rounded-full text-xs font-bold mb-3">
-                <Sparkles className="w-3.5 h-3.5 text-cyan-300" />
-                <span>انتعاش سوهاج في الصيف</span>
-              </div>
-              <h3 className="text-3xl sm:text-4xl font-black mb-2 font-cairo">
-                موخيتو بلو لاجون
-              </h3>
-              <p className="text-white/95 text-xs sm:text-sm font-semibold mb-6 leading-relaxed">
-                مزيج الليمون الأخضر، الصودا الفوارة، ونكهة البلو لاجون الساحرة لترطيب حرارة الصعيد.
-              </p>
-              <a
-                href="#menu"
-                className="inline-block bg-[#fab818] hover:bg-yellow-400 text-slate-900 font-black px-6 py-2.5 rounded-full shadow transition-all transform group-hover:scale-105 text-sm"
-              >
-                اطلب دلوقتي
-              </a>
-            </div>
+              {/* Decorative Circles */}
 
-            <div className="absolute -left-4 -bottom-4 w-48 sm:w-56 h-56 opacity-95 group-hover:scale-105 transition-transform duration-300 rounded-2xl overflow-hidden shadow-2xl">
-              <Image
-                src="/products/p5.jpg"
-                alt="موخيتو الخلاط سوهاج"
-                fill
-                className="object-cover"
+              <div
+                className={`
+                  pointer-events-none
+                  absolute
+                  -right-24
+                  -top-24
+                  h-72
+                  w-72
+                  rounded-full
+                  border
+
+                  ${promo.theme === "dessert"
+                    ? "border-amber-400/10"
+                    : "border-cyan-300/10"
+                  }
+                `}
               />
-            </div>
-          </div>
 
+              <div
+                className={`
+                  pointer-events-none
+                  absolute
+                  -right-10
+                  -top-10
+                  h-44
+                  w-44
+                  rounded-full
+                  border
+
+                  ${promo.theme === "dessert"
+                    ? "border-amber-400/10"
+                    : "border-cyan-300/10"
+                  }
+                `}
+              />
+
+              {/* ================================================= */}
+              {/* MOBILE IMAGE                                       */}
+              {/* ================================================= */}
+
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  scale: 0.9,
+                  y: 20,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  scale: 1,
+                  y: 0,
+                }}
+                viewport={{
+                  once: true,
+                  amount: 0.2,
+                }}
+                transition={{
+                  duration: 0.9,
+                  delay: 0.15 + index * 0.1,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                className={`
+                  relative
+                  order-1
+                  z-10
+                  flex
+                  h-[250px]
+                  w-full
+                  shrink-0
+                  items-center
+                  justify-center
+                  pt-5
+
+                  lg:absolute
+                  lg:order-none
+                  lg:h-auto
+                  lg:w-auto
+                  lg:shrink
+                  lg:pt-0
+
+                  ${promo.theme === "dessert"
+                    ? `
+                        lg:-bottom-8
+                        lg:-left-20
+                        lg:w-[440px]
+                      `
+                    : `
+                        lg:-bottom-7
+                        lg:-left-20  
+                        lg:w-[390px]
+                      `
+                  }
+                `}
+              >
+                <Image
+                  src={promo.image}
+                  alt=""
+                  width={300}
+                  height={300}
+                  priority
+                  className="
+                    h-full
+                    w-auto
+                    max-w-[92%]
+                    object-contain
+
+                    drop-shadow-[0_25px_30px_rgba(0,0,0,0.40)]
+
+                    transition-transform
+                    duration-700
+                    ease-out
+
+                    group-hover:scale-[1.05]
+
+                    lg:h-auto
+                    lg:w-[500px]
+                    
+                  "
+                />
+              </motion.div>
+
+              {/* ================================================= */}
+              {/* CONTENT                                           */}
+              {/* ================================================= */}
+
+              <div
+                className="
+                  relative
+                  z-20
+                  order-2
+                  flex
+                  flex-1
+                  flex-col
+                  p-7
+                  pt-3
+
+                  sm:p-10
+                  sm:pt-4
+
+                  lg:order-none
+                  lg:h-full
+                  lg:flex-none
+                  lg:p-11
+                "
+              >
+
+                {/* Eyebrow */}
+
+                <div
+                  className={`
+                    mb-5
+                    text-[10px]
+                    font-black
+                    tracking-[0.3em]
+
+                    sm:mb-7
+
+                    ${promo.theme === "dessert"
+                      ? "text-[#fab818]"
+                      : "text-cyan-300"
+                    }
+                  `}
+                >
+                  {promo.eyebrow}
+                </div>
+
+                {/* Heading */}
+
+                <h3
+                  className="
+                    max-w-[330px]
+                    text-4xl
+                    font-black
+                    leading-[1.05]
+                    tracking-tight
+                    text-white
+
+                    sm:text-5xl
+                  "
+                >
+                  {promo.title}
+
+                  <br />
+
+                  <span
+                    className={`
+                      ${promo.theme === "dessert"
+                        ? "text-[#fab818]"
+                        : "text-cyan-300"
+                      }
+                    `}
+                  >
+                    {promo.highlight}
+                  </span>
+                </h3>
+
+                {/* Description */}
+
+                <p
+                  className={`
+                    mt-5
+                    max-w-[310px]
+                    text-sm
+                    font-medium
+                    leading-7
+
+                    ${promo.theme === "dessert"
+                      ? "text-amber-100/65"
+                      : "text-cyan-100/70"
+                    }
+                  `}
+                >
+                  {promo.description}
+                </p>
+
+                {/* CTA */}
+
+                <div className="mt-auto pt-7 lg:pt-8">
+                  <a
+                    href="#menu"
+                    className="
+                      group/btn
+                      inline-flex
+                      items-center
+                      gap-3
+                      rounded-full
+                      bg-white
+                      px-5
+                      py-3
+                      text-sm
+                      font-black
+                      text-gray-950
+
+                      transition-all
+                      duration-300
+
+                      hover:-translate-y-1
+                      hover:bg-[#fab818]
+                      hover:shadow-xl
+                    "
+                  >
+                    <span>{promo.button}</span>
+
+                    <ArrowLeft
+                      className="
+                        h-4
+                        w-4
+                        transition-transform
+                        duration-300
+                        group-hover/btn:-translate-x-1
+                      "
+                    />
+                  </a>
+                </div>
+              </div>
+
+              {/* ================= BOTTOM GRADIENT ================= */}
+
+              <div
+                className="
+                  pointer-events-none
+                  absolute
+                  inset-x-0
+                  bottom-0
+                  z-[5]
+                  h-32
+                  rounded-b-[2rem]
+                  bg-gradient-to-t
+                  from-black/20
+                  to-transparent
+                "
+              />
+            </motion.article>
+          ))}
         </div>
       </div>
     </section>

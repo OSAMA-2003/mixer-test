@@ -53,7 +53,7 @@ export default function MixerCategories({
   onSelectCategory,
 }: MixerCategoriesProps) {
   return (
-    <section className="relative bg-amber-50/40 py-16 border-t border-b border-amber-100/60" dir="rtl">
+    <section className="relative bg-white py-16 border-t border-b border-gray-100" dir="rtl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}

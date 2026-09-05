@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { ShoppingCart, Menu, X } from "lucide-react";
 
@@ -8,158 +8,271 @@ interface MixerHeaderProps {
   isVisible?: boolean;
 }
 
-export default function MixerHeader({ isVisible = true }: MixerHeaderProps) {
+const navItems = [
+  { label: "الرئيسية", href: "#hero-cinematic" },
+  { label: "المنيو", href: "#menu" },
+  { label: "فروعنا", href: "#branches" },
+  { label: "عن الخلاط", href: "#about" },
+  { label: "تواصل معنا", href: "#contact" },
+];
+
+export default function MixerHeader({
+  isVisible = true,
+}: MixerHeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      setScrolled(window.scrollY > 40);
     };
+
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out ${
-        isVisible
-          ? "translate-y-0 opacity-100 pointer-events-auto"
+      className={`
+        fixed top-0 left-0 right-0 z-50
+        transition-all duration-500 ease-out
+        ${isVisible
+          ? "translate-y-0 opacity-100"
           : "-translate-y-full opacity-0 pointer-events-none"
-      } ${
-        scrolled
-          ? "bg-white/95 backdrop-blur-md shadow-md border-b border-gray-100 py-3"
-          : "bg-white/90 backdrop-blur-sm border-b border-gray-100 py-4"
-      }`}
+        }
+        ${scrolled
+          ? "bg-white/95 backdrop-blur-xl border-b border-black/[0.06]"
+          : "bg-white/80 backdrop-blur-md"
+        }
+      `}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        
-        {/* Order Now Button (Left) */}
-        <div className="flex items-center gap-3">
-          <a
-            href="#menu"
-            className="inline-flex items-center gap-2 bg-[#008ba3] hover:bg-[#015f70] text-white font-extrabold px-6 py-2.5 rounded-full shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 text-sm"
-          >
-            <ShoppingCart className="w-4 h-4" />
-            <span>اطلب دلوقتي</span>
-          </a>
+      <div
+        className={`
+          max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-10
+          flex items-center justify-between
+          transition-all duration-500
+          ${scrolled ? "h-[70px]" : "h-[82px]"}
+        `}
+      >
+        {/* LEFT — Order */}
+
+
+        <div
+          className="
+              relative
+              w-28 h-28
+              flex items-center justify-center
+            
+            "
+        >
+          <Image
+            src="/logo.png"
+            alt="الخلاط سوهاج"
+            width={150}
+            height={150}
+            className="object-contain"
+            priority
+          />
         </div>
 
-        {/* Desktop Navigation (Center) - RTL order from right to left */}
-        <nav className="hidden md:flex items-center gap-2 font-bold text-sm">
-          <a
-            href="#hero-cinematic"
-            className="px-5 py-2 bg-[#fab818] text-slate-950 font-black rounded-full shadow-sm hover:bg-[#e5a510] transition-colors"
-          >
-            الرئيسية
-          </a>
-          <a
-            href="#menu"
-            className="px-4 py-2 text-gray-700 hover:text-[#008ba3] transition-colors rounded-full"
-          >
-            المنيو
-          </a>
-          <a
-            href="#branches"
-            className="px-4 py-2 text-gray-700 hover:text-[#008ba3] transition-colors rounded-full"
-          >
-            فروع سوهاج
-          </a>
-          <a
-            href="#about"
-            className="px-4 py-2 text-gray-700 hover:text-[#008ba3] transition-colors rounded-full"
-          >
-            عن الخلاط
-          </a>
-          <a
-            href="#contact"
-            className="px-4 py-2 text-gray-700 hover:text-[#008ba3] transition-colors rounded-full"
-          >
-            تواصل معنا
-          </a>
+
+        {/* CENTER — Navigation */}
+        <nav
+          dir="rtl"
+          className="
+            hidden md:flex
+            items-center
+            gap-1
+            absolute left-1/2 -translate-x-1/2
+          "
+        >
+          {navItems.map((item, index) => (
+            <a
+              key={item.href}
+              href={item.href}
+              className={`
+                relative
+                px-4 lg:px-5
+                py-2.5
+                text-[14px]
+                font-bold
+                transition-colors duration-300
+                ${index === 0
+                  ? "text-[#008ba3]"
+                  : "text-[#3f4448] hover:text-[#008ba3]"
+                }
+
+                after:absolute
+                after:right-4
+                after:left-4
+                after:-bottom-[2px]
+                after:h-[2px]
+                after:rounded-full
+                after:bg-[#fab818]
+                after:scale-x-0
+                after:origin-right
+                after:transition-transform
+                after:duration-300
+
+                hover:after:scale-x-100
+              `}
+            >
+              {item.label}
+            </a>
+          ))}
         </nav>
 
-        {/* Brand Logo & Emblem (Right) */}
-        <div className="flex items-center gap-3">
-          <a href="#hero-cinematic" className="flex items-center gap-2 group">
-            <div className="flex flex-col text-right">
-              <div className="text-2xl font-black text-[#fab818] tracking-tighter leading-none">
-                الخلاط
-              </div>
-              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block">
-                The Mixer • سوهاج
-              </span>
-            </div>
+        {/* RIGHT — Brand */}
+        <a
+          href="#hero-cinematic"
+          className="flex items-center gap-3 group"
+        >
 
-            {/* Stylized Blender Emblem with pulsing badge */}
-            <div className="relative w-11 h-11 flex items-center justify-center bg-yellow-50 rounded-2xl border border-yellow-200 shadow-inner group-hover:scale-105 transition-transform p-1.5">
-              <Image
-                src="/logo.png"
-                alt="شعار الخلاط سوهاج"
-                width={36}
-                height={36}
-                className="object-contain"
-                priority
+
+          {/* Logo */}
+
+
+          <div className="flex items-center">
+            <a
+              href="#menu"
+              className="
+              group
+              inline-flex items-center gap-2.5
+              bg-[#008ba3]
+              hover:bg-[#00798f]
+              text-white
+              px-5 sm:px-6
+              h-11
+              rounded-full
+              text-[13px]
+              font-bold
+              transition-all duration-300
+              hover:-translate-y-0.5
+              shadow-[0_6px_20px_rgba(0,139,163,0.18)]
+            "
+            >
+              <ShoppingCart
+                className="
+                w-[16px] h-[16px]
+                transition-transform duration-300
+                group-hover:-translate-x-0.5
+              "
               />
-              <span className="absolute -top-1 -right-1 flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#fab818] opacity-75" />
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-[#fab818]" />
-              </span>
-            </div>
-          </a>
 
-          {/* Mobile Menu Trigger */}
+              <span>اطلب دلوقتي</span>
+            </a>
+          </div>
+
+
+          {/* Mobile menu button */}
           <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden p-2 text-gray-700 hover:text-[#008ba3]"
-            aria-label="Toggle Menu"
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              setMobileOpen(!mobileOpen);
+            }}
+            className="
+              md:hidden
+              mr-1
+              w-10 h-10
+              flex items-center justify-center
+              rounded-full
+              border border-black/[0.08]
+              text-[#303438]
+              transition-all duration-300
+              hover:border-[#008ba3]
+              hover:text-[#008ba3]
+            "
+            aria-label="Toggle menu"
           >
-            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileOpen ? (
+              <X className="w-[19px] h-[19px]" />
+            ) : (
+              <Menu className="w-[19px] h-[19px]" />
+            )}
           </button>
-        </div>
-
+        </a>
       </div>
 
-      {/* Mobile Menu Dropdown */}
-      {mobileOpen && (
-        <div className="md:hidden bg-white border-b border-gray-200 px-6 py-4 flex flex-col gap-2 shadow-lg text-right">
-          <a
-            href="#hero-cinematic"
-            onClick={() => setMobileOpen(false)}
-            className="py-2 text-[#008ba3] font-bold border-b border-gray-100"
-          >
-            الرئيسية
-          </a>
-          <a
-            href="#menu"
-            onClick={() => setMobileOpen(false)}
-            className="py-2 text-gray-700 hover:text-[#008ba3] border-b border-gray-100"
-          >
-            المنيو
-          </a>
-          <a
-            href="#branches"
-            onClick={() => setMobileOpen(false)}
-            className="py-2 text-gray-700 hover:text-[#008ba3] border-b border-gray-100"
-          >
-            فروع سوهاج
-          </a>
-          <a
-            href="#about"
-            onClick={() => setMobileOpen(false)}
-            className="py-2 text-gray-700 hover:text-[#008ba3] border-b border-gray-100"
-          >
-            عن الخلاط
-          </a>
-          <a
-            href="#contact"
-            onClick={() => setMobileOpen(false)}
-            className="py-2 text-gray-700 hover:text-[#008ba3]"
-          >
-            تواصل معنا
-          </a>
+      {/* MOBILE MENU */}
+      <div
+        className={`
+          md:hidden
+          overflow-hidden
+          transition-all duration-400 ease-out
+          ${mobileOpen
+            ? "max-h-[420px] opacity-100"
+            : "max-h-0 opacity-0"
+          }
+        `}
+      >
+        <div
+          dir="rtl"
+          className="
+            bg-white
+            border-t border-black/[0.05]
+            px-5
+            py-4
+          "
+        >
+          <nav className="flex flex-col">
+            {navItems.map((item, index) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={() => setMobileOpen(false)}
+                className={`
+                  flex items-center justify-between
+                  py-4
+                  border-b border-black/[0.05]
+                  text-[15px]
+                  font-bold
+                  transition-colors duration-200
+                  ${index === 0
+                    ? "text-[#008ba3]"
+                    : "text-[#3f4448] hover:text-[#008ba3]"
+                  }
+                `}
+              >
+                <span>{item.label}</span>
+
+                <span
+                  className="
+                    w-1.5 h-1.5
+                    rounded-full
+                    bg-[#fab818]
+                    opacity-0
+                    transition-opacity
+                    group-hover:opacity-100
+                  "
+                />
+              </a>
+            ))}
+
+            {/* Mobile CTA */}
+            <a
+              href="#menu"
+              onClick={() => setMobileOpen(false)}
+              className="
+                mt-4
+                flex items-center justify-center gap-2
+                h-12
+                rounded-full
+                bg-[#008ba3]
+                text-white
+                text-sm
+                font-bold
+                shadow-[0_8px_24px_rgba(0,139,163,0.15)]
+              "
+            >
+              <ShoppingCart className="w-4 h-4" />
+              اطلب دلوقتي
+            </a>
+          </nav>
         </div>
-      )}
+      </div>
     </header>
   );
 }
