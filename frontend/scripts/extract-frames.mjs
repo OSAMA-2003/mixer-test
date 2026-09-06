@@ -45,9 +45,9 @@ if (fs.existsSync(outputDir)) {
 fs.mkdirSync(outputDir, { recursive: true });
 
 // Extraction settings
-// Source is 1280x720 at 24 FPS
+// Source resolution: 1280x720 HD at 24 FPS
 const fps = 24;
-const quality = 92;
+const quality = 80; // High visual quality with 60%+ smaller footprint
 const outputPattern = path.join(outputDir, "frame-%04d.webp");
 
 console.log(`🚀 Starting extraction at ${fps} FPS, WebP quality ${quality}%, native resolution...`);
@@ -58,7 +58,7 @@ const ffmpegArgs = [
   "-c:v", "libwebp",
   "-quality", String(quality),
   "-lossless", "0",
-  "-compression_level", "4",
+  "-compression_level", "6",
   "-an", // Strip audio
   "-vsync", "0",
   outputPattern,
