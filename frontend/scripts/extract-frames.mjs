@@ -45,9 +45,9 @@ if (fs.existsSync(outputDir)) {
 fs.mkdirSync(outputDir, { recursive: true });
 
 // Extraction settings
-// Source resolution: 1280x720 HD at 24 FPS
+// Source resolution: Native HD at 24 FPS with maximum WebP visual clarity (95% quality)
 const fps = 24;
-const quality = 80; // High visual quality with 60%+ smaller footprint
+const quality = 95; // Ultra high-resolution & maximum sharpness
 const outputPattern = path.join(outputDir, "frame-%04d.webp");
 
 console.log(`🚀 Starting extraction at ${fps} FPS, WebP quality ${quality}%, native resolution...`);
@@ -106,9 +106,9 @@ const manifest = {
 };
 
 fs.writeFileSync(
-  path.join(outputDir, "manifest.json"),
+  path.join(outputDir, "frames-info.json"),
   JSON.stringify(manifest, null, 2),
   "utf-8"
 );
 
-console.log(`📄 Saved frame manifest to public/frames/manifest.json`);
+console.log(`📄 Saved frame manifest to public/frames/frames-info.json`);

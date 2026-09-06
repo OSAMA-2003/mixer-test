@@ -13,6 +13,7 @@ const tajawal = Tajawal({
 export const metadata: Metadata = {
   title: "الخلاط | The Mixer - سوهاج",
   description: "الخلاط | The Mixer - أحلى خلطات طبيعية 100% في سوهاج. عصائر فريش، سموذي، ميلك شيك، وموخيتو بطريقة مبتكرة في قلب سوهاج.",
+  manifest: "/manifest.json",
   icons: {
     icon: "/logo.png",
   },
