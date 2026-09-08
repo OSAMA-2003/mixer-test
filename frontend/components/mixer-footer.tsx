@@ -123,11 +123,7 @@ export default function MixerFooter() {
                   <span>←</span> موقعنا وفروعنا في سوهاج
                 </Link>
               </li>
-              <li>
-                <Link href="/admin" className="hover:text-[#fab818] hover:-translate-x-1 transition-all flex items-center gap-2 text-[#fab818] font-bold">
-                  <span>←</span> لوحة تحكم الإدارة (Admin Dashboard)
-                </Link>
-              </li>
+
             </ul>
           </div>
 
@@ -189,41 +185,60 @@ export default function MixerFooter() {
 
       {/* Review Submission Modal */}
       {showReviewModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <div className="bg-slate-900 border border-slate-800 w-full max-w-md rounded-3xl p-6 shadow-2xl relative text-right text-white">
-            <button onClick={() => setShowReviewModal(false)} className="absolute left-5 top-5 p-2 rounded-full bg-slate-800 text-slate-400">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 backdrop-blur-md p-4">
+          <div className="bg-white border border-slate-100 w-full max-w-md rounded-3xl p-6 sm:p-8 shadow-2xl relative text-right text-slate-900">
+            <button
+              onClick={() => setShowReviewModal(false)}
+              className="absolute left-5 top-5 p-2 rounded-full bg-slate-100 text-slate-400 hover:text-slate-700 transition"
+            >
               <X className="w-5 h-5" />
             </button>
-            <h3 className="font-cairo font-black text-xl mb-4 text-[#fab818]">أضف تقييمك لمطعم الخلاط 🌟</h3>
+
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-2xl bg-[#fab818]/15 text-[#fab818] flex items-center justify-center font-bold text-2xl border border-[#fab818]/20 shrink-0">
+                ⭐
+              </div>
+              <div>
+                <h3 className="font-cairo font-black text-xl text-slate-900">أضف تقييمك لمطعم الخلاط</h3>
+                <p className="text-xs text-slate-500 font-medium">شاركنا تجربتك ورأيك في منتجاتنا وخدمتنا</p>
+              </div>
+            </div>
+
             {msg ? (
-              <p className="p-4 bg-emerald-950 text-emerald-300 rounded-2xl text-sm font-bold text-center">{msg}</p>
+              <p className="p-4 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-2xl text-sm font-bold text-center animate-fade-in">
+                {msg}
+              </p>
             ) : (
               <form onSubmit={handleReviewSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-xs font-bold mb-1">الاسم الكريم</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1.5">الاسم الكريم</label>
                   <input
                     type="text"
                     required
                     value={reviewForm.name}
                     onChange={(e) => setReviewForm({ ...reviewForm, name: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-slate-950 border border-slate-800 text-sm"
+                    className="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-[#008ba3]"
+                    placeholder="اكتب اسمك هنا..."
                   />
                 </div>
+
                 <div>
-                  <label className="block text-xs font-bold mb-1">رقم الهاتف (اختياري)</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1.5">رقم الهاتف (اختياري)</label>
                   <input
                     type="text"
                     value={reviewForm.phone}
                     onChange={(e) => setReviewForm({ ...reviewForm, phone: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-slate-950 border border-slate-800 text-sm"
+                    className="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-[#008ba3]"
+                    placeholder="010XXXXXXXX"
                   />
                 </div>
+
                 <div>
-                  <label className="block text-xs font-bold mb-1">التقييم (من 5 نجوم)</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1.5">التقييم</label>
                   <select
                     value={reviewForm.rating}
                     onChange={(e) => setReviewForm({ ...reviewForm, rating: Number(e.target.value) })}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-slate-950 border border-slate-800 text-sm font-bold"
+                    className="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-[#008ba3] cursor-pointer"
                   >
                     <option value={5}>⭐⭐⭐⭐⭐ (ممتاز جداً 5/5)</option>
                     <option value={4}>⭐⭐⭐⭐ (جيد جداً 4/5)</option>
@@ -232,18 +247,24 @@ export default function MixerFooter() {
                     <option value={1}>⭐ (ضعيف 1/5)</option>
                   </select>
                 </div>
+
                 <div>
-                  <label className="block text-xs font-bold mb-1">رأيك بالتفصيل</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1.5">رأيك بالتفصيل</label>
                   <textarea
                     required
                     rows={3}
                     value={reviewForm.comment}
                     onChange={(e) => setReviewForm({ ...reviewForm, comment: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-slate-950 border border-slate-800 text-sm"
+                    className="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#008ba3]"
+                    placeholder="اكتب تجربتك مع المشروبات والحلويات..."
                   />
                 </div>
-                <button type="submit" className="w-full bg-[#fab818] text-slate-950 font-black py-3 rounded-2xl text-sm shadow-md">
-                  إرسال التقييم
+
+                <button
+                  type="submit"
+                  className="w-full bg-[#fab818] hover:bg-[#e0a410] text-slate-950 font-black py-3.5 rounded-2xl text-sm shadow-lg hover:scale-[1.02] transition cursor-pointer"
+                >
+                  إرسال التقييم 🌟
                 </button>
               </form>
             )}
@@ -253,59 +274,84 @@ export default function MixerFooter() {
 
       {/* Feedback Submission Modal */}
       {showFeedbackModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <div className="bg-slate-900 border border-slate-800 w-full max-w-md rounded-3xl p-6 shadow-2xl relative text-right text-white">
-            <button onClick={() => setShowFeedbackModal(false)} className="absolute left-5 top-5 p-2 rounded-full bg-slate-800 text-slate-400">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 backdrop-blur-md p-4">
+          <div className="bg-white border border-slate-100 w-full max-w-md rounded-3xl p-6 sm:p-8 shadow-2xl relative text-right text-slate-900">
+            <button
+              onClick={() => setShowFeedbackModal(false)}
+              className="absolute left-5 top-5 p-2 rounded-full bg-slate-100 text-slate-400 hover:text-slate-700 transition"
+            >
               <X className="w-5 h-5" />
             </button>
-            <h3 className="font-cairo font-black text-xl mb-4 text-cyan-400">إرسال شكوى أو اقتراح للإدارة 📩</h3>
+
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-2xl bg-[#008ba3]/10 text-[#008ba3] flex items-center justify-center font-bold text-2xl border border-[#008ba3]/20 shrink-0">
+                📩
+              </div>
+              <div>
+                <h3 className="font-cairo font-black text-xl text-slate-900">إرسال شكوى أو اقتراح</h3>
+                <p className="text-xs text-slate-500 font-medium">رسالتك تصل مباشرة لإدارة مطعم الخلاط</p>
+              </div>
+            </div>
+
             {msg ? (
-              <p className="p-4 bg-emerald-950 text-emerald-300 rounded-2xl text-sm font-bold text-center">{msg}</p>
+              <p className="p-4 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-2xl text-sm font-bold text-center animate-fade-in">
+                {msg}
+              </p>
             ) : (
               <form onSubmit={handleFeedbackSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-xs font-bold mb-1">الاسم</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1.5">الاسم</label>
                   <input
                     type="text"
                     required
                     value={feedbackForm.name}
                     onChange={(e) => setFeedbackForm({ ...feedbackForm, name: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-slate-950 border border-slate-800 text-sm"
+                    className="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-[#008ba3]"
+                    placeholder="اسمك بالكامل..."
                   />
                 </div>
+
                 <div>
-                  <label className="block text-xs font-bold mb-1">رقم الهاتف للاتصال بك</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1.5">رقم الهاتف للاتصال بك</label>
                   <input
                     type="text"
                     required
                     value={feedbackForm.phone}
                     onChange={(e) => setFeedbackForm({ ...feedbackForm, phone: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-slate-950 border border-slate-800 text-sm"
+                    className="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-[#008ba3]"
+                    placeholder="010XXXXXXXX"
                   />
                 </div>
+
                 <div>
-                  <label className="block text-xs font-bold mb-1">نوع الرسالة</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1.5">نوع الرسالة</label>
                   <select
                     value={feedbackForm.type}
                     onChange={(e) => setFeedbackForm({ ...feedbackForm, type: e.target.value as any })}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-slate-950 border border-slate-800 text-sm font-bold"
+                    className="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-[#008ba3] cursor-pointer"
                   >
                     <option value="suggestion">اقتراح للتطوير 💡</option>
                     <option value="complaint">شكوى رسمية ⚠️</option>
                   </select>
                 </div>
+
                 <div>
-                  <label className="block text-xs font-bold mb-1">نص الرسالة</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1.5">نص الرسالة</label>
                   <textarea
                     required
                     rows={3}
                     value={feedbackForm.message}
                     onChange={(e) => setFeedbackForm({ ...feedbackForm, message: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-2xl bg-slate-950 border border-slate-800 text-sm"
+                    className="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#008ba3]"
+                    placeholder="اكتب تفاصيل الشكوى أو الاقتراح..."
                   />
                 </div>
-                <button type="submit" className="w-full bg-[#008ba3] text-white font-black py-3 rounded-2xl text-sm shadow-md">
-                  إرسال للإدارة
+
+                <button
+                  type="submit"
+                  className="w-full bg-[#008ba3] hover:bg-[#00768b] text-white font-black py-3.5 rounded-2xl text-sm shadow-lg hover:scale-[1.02] transition cursor-pointer"
+                >
+                  إرسال للإدارة 📩
                 </button>
               </form>
             )}

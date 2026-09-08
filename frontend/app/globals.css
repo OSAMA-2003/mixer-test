@@ -37,6 +37,10 @@ body {
   overflow-x: hidden;
 }
 
+button {
+  cursor: pointer;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 7px;
@@ -83,6 +87,7 @@ body {
   0% {
     transform: translateX(0%);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -92,6 +97,7 @@ body {
   0% {
     transform: translateX(-50%);
   }
+
   100% {
     transform: translateX(0%);
   }

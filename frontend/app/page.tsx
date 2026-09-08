@@ -26,7 +26,7 @@ export default function Home() {
 
       {/* 2. Cinematic Canvas Image Sequence (Scroll-Controlled Hero) */}
       <ImageSequence
-        totalFrames={192}
+        totalFrames={139}
         containerHeight="h-[420vh]"
         onSequenceFinish={(finished) => setShowNavbar(finished)}
       />
