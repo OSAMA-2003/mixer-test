@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import NextImage from "next/image";
 import { useScroll, useSpring, motion, AnimatePresence } from "framer-motion";
+import { ChevronDown } from "lucide-react";
 
 export interface ImageSequenceProps {
   totalFrames?: number;
@@ -395,6 +396,31 @@ export default function ImageSequence({
             </motion.div>
           )}
         </AnimatePresence>
+        {/* Scroll-Down Arrow Overlay (Click to jump directly to next section) */}
+        {isInitialReady && (
+          <motion.button
+            type="button"
+            aria-label="الانتقال للقسم التالي"
+            onClick={() => {
+              const nextSection = document.getElementById("menu-cta");
+              if (nextSection) {
+                nextSection.scrollIntoView({ behavior: "smooth" });
+              }
+            }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: [0, 8, 0] }}
+            transition={{
+              opacity: { duration: 0.8 },
+              y: { repeat: Infinity, duration: 2, ease: "easeInOut" },
+            }}
+            className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-1.5 cursor-pointer group bg-black/40 hover:bg-slate-950/80 backdrop-blur-md text-white px-8 py-2.5 rounded-xl border border-white/20 shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95"
+          >
+            <span className="text-[11px] sm:text-xs font-black font-cairo text-white/90 group-hover:text-[#fab818] transition-colors">
+              اكتشف العروض
+            </span>
+            <ChevronDown className="w-5 h-5 text-[#fab818] stroke-[2.5]" />
+          </motion.button>
+        )}
       </div>
     </div>
   );
