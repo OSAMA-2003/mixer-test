@@ -18,6 +18,7 @@ export interface MenuItem {
   category_id: string;
   name: string;
   price: number;
+  original_price?: number;
   is_daily?: boolean;
   badge?: string;
   description?: string;
@@ -25,6 +26,7 @@ export interface MenuItem {
   img?: string;
   is_available?: boolean;
   is_special?: boolean;
+  is_offer?: boolean;
   display_order?: number;
 }
 
@@ -39,6 +41,7 @@ export interface RestaurantSettings {
   working_hours: string;
   facebook_url: string;
   instagram_url: string;
+  show_offers_section?: boolean;
 }
 
 export interface Review {
@@ -182,6 +185,59 @@ export async function fetchSpecialItems(): Promise<MenuItem[]> {
       is_available: true,
       is_special: true,
     }));
+  }
+}
+
+export async function fetchOfferItems(): Promise<MenuItem[]> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/menu/offers`, { cache: "no-store" });
+    if (!res.ok) throw new Error("API error");
+    const data = await res.json();
+    if (data.success && data.data) return data.data;
+    throw new Error("No data");
+  } catch (err) {
+    return [
+      {
+        id: "shikar",
+        category_id: "special",
+        name: "شيكار",
+        price: 65,
+        original_price: 85,
+        badge: "عرض خاص 🔥",
+        image: "/products/offer-1.jfif",
+        img: "/products/offer-1.jfif",
+        description: "خلطة الخلاط السحرية الغنية بقطع الفواكه والكريمة.",
+        is_available: true,
+        is_offer: true,
+      },
+      {
+        id: "avocado-nuts",
+        category_id: "special",
+        name: "أفوكادو عصير مكسرات",
+        price: 85,
+        original_price: 110,
+        badge: "خصم حصري 🔥",
+        image: "/products/offer-2.jfif",
+        img: "/products/offer-2.jfif",
+        description: "أفوكادو بلدي طازج مع العسل الطبيعي والمكسرات الفاخرة.",
+        is_available: true,
+        is_offer: true,
+      },
+      {
+        id: "soft-caramel",
+        category_id: "special",
+        name: "ميلك شيك اوريو",
+        price: 60,
+        original_price: 100,
+        badge: "خصم حصري 🔥",
+        image: "/products/offer-3.jfif",
+        img: "/products/offer-3.jfif",
+        description: "ميلك شيك اوريو غني مع صوص الشوكولاتة الدافي.",
+        is_available: true,
+        is_offer: true,
+      },
+
+    ];
   }
 }
 

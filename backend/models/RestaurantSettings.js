@@ -43,6 +43,10 @@ const RestaurantSettingsSchema = new mongoose.Schema(
       type: String,
       default: "https://instagram.com",
     },
+    show_offers_section: {
+      type: Boolean,
+      default: true,
+    },
   },
   {
     timestamps: true,

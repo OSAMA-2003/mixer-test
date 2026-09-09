@@ -3,6 +3,7 @@ const router = express.Router();
 const {
   getFullMenu,
   getSpecialItems,
+  getOfferItems,
   getItems,
   upsertMenuItem,
   deleteMenuItem,
@@ -10,6 +11,7 @@ const {
 
 router.get("/full", getFullMenu);
 router.get("/special", getSpecialItems);
+router.get("/offers", getOfferItems);
 
 router.route("/items")
   .get(getItems)

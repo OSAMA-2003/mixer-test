@@ -9,6 +9,7 @@ const defaultSettings = {
   working_hours: "يومياً من ١٢:٠٠ ظهراً حتى ٠٢:٠٠ بعد منتصف الليل",
   facebook_url: "https://facebook.com",
   instagram_url: "https://instagram.com",
+  show_offers_section: true,
 };
 
 const defaultCategories = [
@@ -23,9 +24,9 @@ const defaultCategories = [
 
 const defaultMenuItems = [
   // SPECIAL
-  { id: "shikar", category_id: "special", name: "شيكار", price: 65, badge: "الأكثر طلباً", img: "/products/p1.jpg", image: "/products/p1.jpg", description: "خلطة الخلاط السحرية الغنية بقطع الفواكه والكريمة.", is_special: true, is_available: true, display_order: 1 },
+  { id: "shikar", category_id: "special", name: "شيكار", price: 65, original_price: 85, is_offer: true, badge: "عرض خاص 🔥", img: "/products/p1.jpg", image: "/products/p1.jpg", description: "خلطة الخلاط السحرية الغنية بقطع الفواكه والكريمة.", is_special: true, is_available: true, display_order: 1 },
   { id: "lacasa", category_id: "special", name: "لاكاسا", price: 65, badge: "مميز", img: "/products/p2.jpg", image: "/products/p2.jpg", description: "كوكتيل طبقات غني بالفواكه الطازجة والآيس كريم.", is_special: true, is_available: true, display_order: 2 },
-  { id: "avocado-nuts", category_id: "special", name: "أفوكادو عصير مكسرات", price: 85, badge: "فاخر", img: "/products/p3.jpg", image: "/products/p3.jpg", description: "أفوكادو بلدي طازج مع العسل الطبيعي والمكسرات الفاخرة.", is_special: true, is_available: true, display_order: 3 },
+  { id: "avocado-nuts", category_id: "special", name: "أفوكادو عصير مكسرات", price: 85, original_price: 110, is_offer: true, badge: "خصم حصري 🔥", img: "/products/p3.jpg", image: "/products/p3.jpg", description: "أفوكادو بلدي طازج مع العسل الطبيعي والمكسرات الفاخرة.", is_special: true, is_available: true, display_order: 3 },
   { id: "manjawy", category_id: "special", name: "مانجاوي", price: 60, badge: "انتعاش", img: "/products/p4.jpg", image: "/products/p4.jpg", description: "عصير مانجو مركز غني بقطع المانجو الطبيعية.", is_special: true, is_available: true, display_order: 4 },
   { id: "fustokado-pro", category_id: "special", name: "فستوكادو برو", price: 65, badge: "جديد ✨", img: "/products/p5.jpg", image: "/products/p5.jpg", description: "مزيج الأفوكادو والفستق الحلبي مع صوص الكريمة.", is_special: true, is_available: true, display_order: 5 },
   { id: "soft-caramel", category_id: "special", name: "سوفت كراميل", price: 65, badge: "", img: "/products/p6.jpg", image: "/products/p6.jpg", description: "ميلك شيك كراميل غني مع صوص الكراميل الدافي.", is_special: true, is_available: true, display_order: 6 },

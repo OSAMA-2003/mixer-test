@@ -16,7 +16,7 @@ export default function MixerBranches() {
     <section
       id="branches"
       dir="rtl"
-      className="relative overflow-hidden bg-white px-4 pb-24 pt-16 text-white sm:px-6 lg:px-8 lg:pb-32"
+      className="relative overflow-hidden bg-white px-4 py-14 text-white sm:px-6 lg:px-8 "
     >
 
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -62,7 +62,7 @@ export default function MixerBranches() {
 
         {/* Branch */}
         <div className="mx-auto max-w-5xl">
-          <div className="group grid overflow-hidden rounded-[2.5rem] border border-white/15 bg-white/10 backdrop-blur-xl shadow-[0_20px_70px_rgba(0,0,0,0.3)] md:grid-cols-2">
+          <div className="group grid overflow-hidden rounded-[1.5rem] border border-white/15 bg-white/10 backdrop-blur-xl shadow-[0_20px_70px_rgba(0,0,0,0.3)] md:grid-cols-2">
 
             {/* Image */}
             <div className="relative min-h-[300px] overflow-hidden sm:min-h-[400px] md:min-h-[500px]">

@@ -31,7 +31,7 @@ const promos = [
 export default function MixerPromos() {
   return (
     <section
-      className="relative overflow-hidden bg-white py-20 sm:py-28 lg:py-32"
+      className="relative overflow-hidden bg-white py-14"
       dir="rtl"
     >
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -122,10 +122,8 @@ export default function MixerPromos() {
                 overflow-hidden
                 rounded-[2rem]
                 border
-                shadow-[0_25px_70px_rgba(0,0,0,0.10)]
                 transition-shadow
                 duration-500
-                hover:shadow-[0_35px_90px_rgba(0,0,0,0.16)]
 
                 lg:min-h-[500px]
                 lg:overflow-visible
@@ -261,7 +259,6 @@ export default function MixerPromos() {
                     max-w-[92%]
                     object-contain
 
-                    drop-shadow-[0_25px_30px_rgba(0,0,0,0.40)]
 
                     transition-transform
                     duration-700
@@ -393,7 +390,6 @@ export default function MixerPromos() {
 
                       hover:-translate-y-1
                       hover:bg-[#fab818]
-                      hover:shadow-xl
                     "
                   >
                     <span>{promo.button}</span>

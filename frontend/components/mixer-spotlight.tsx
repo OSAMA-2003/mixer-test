@@ -54,7 +54,7 @@ export function MixerExperienceCTA() {
     <section
       id="menu-cta"
       dir="rtl"
-      className="relative min-h-[700px] lg:min-h-[780px] bg-[#faf8f5] pt-24 pb-20 sm:pt-28 lg:pt-36 lg:pb-28"
+      className="relative  min-h-[600px] bg-white pt-24 pb-14  md:pt-36 "
     >
       {/* ================= BACKGROUND ================= */}
 
@@ -273,7 +273,7 @@ export function MixerExperienceCTA() {
           >
 
             {/* Label */}
-            <div className="inline-flex items-center gap-2 px-4 py-2  ">
+            <div className="inline-flex items-center gap-2 px-4   ">
               <div
                 className="
                            relative

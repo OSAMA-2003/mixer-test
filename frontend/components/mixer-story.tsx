@@ -16,7 +16,7 @@ export default function MixerStory() {
     <section
       id="about"
       dir="rtl"
-      className="relative overflow-hidden bg-[#faf8f5] py-24 sm:py-28 lg:py-36"
+      className="relative overflow-hidden bg-white py-24"
     >
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">

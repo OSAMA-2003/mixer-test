@@ -65,17 +65,38 @@ const getSpecialItems = async (req, res, next) => {
   }
 };
 
-// @desc    Get menu items with optional category/special filter
+// @desc    Get promotional offer items
+// @route   GET /api/menu/offers
+// @access  Public
+const getOfferItems = async (req, res, next) => {
+  try {
+    if (isDbConnected()) {
+      const items = await MenuItem.find({ is_offer: true, is_available: true }).sort({ display_order: 1 });
+      return res.json({ success: true, count: items.length, data: items });
+    }
+
+    const items = memoryStore.menuItems
+      .filter((i) => i.is_offer && (i.is_available !== false))
+      .sort((a, b) => a.display_order - b.display_order);
+
+    res.json({ success: true, count: items.length, data: items });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @desc    Get menu items with optional category/special/offer filter
 // @route   GET /api/menu/items
 // @access  Public
 const getItems = async (req, res, next) => {
   try {
-    const { category_id, is_special } = req.query;
+    const { category_id, is_special, is_offer } = req.query;
 
     if (isDbConnected()) {
       const filter = {};
       if (category_id && category_id !== "all") filter.category_id = category_id;
       if (is_special !== undefined) filter.is_special = is_special === "true";
+      if (is_offer !== undefined) filter.is_offer = is_offer === "true";
 
       const items = await MenuItem.find(filter).sort({ display_order: 1 });
       return res.json({ success: true, count: items.length, data: items });
@@ -88,6 +109,10 @@ const getItems = async (req, res, next) => {
     if (is_special !== undefined) {
       const isSpec = is_special === "true";
       items = items.filter((i) => Boolean(i.is_special) === isSpec);
+    }
+    if (is_offer !== undefined) {
+      const isOff = is_offer === "true";
+      items = items.filter((i) => Boolean(i.is_offer) === isOff);
     }
     items.sort((a, b) => a.display_order - b.display_order);
 
@@ -107,6 +132,7 @@ const upsertMenuItem = async (req, res, next) => {
       category_id,
       name,
       price,
+      original_price,
       is_daily,
       badge,
       description,
@@ -114,6 +140,7 @@ const upsertMenuItem = async (req, res, next) => {
       img,
       is_available,
       is_special,
+      is_offer,
       display_order,
     } = req.body;
 
@@ -133,6 +160,7 @@ const upsertMenuItem = async (req, res, next) => {
 
     const itemId = id || `item_${Date.now()}`;
     const finalImg = image || img || "";
+    const finalOriginalPrice = original_price ? Number(original_price) : 0;
 
     if (isDbConnected()) {
       const categoryExists = await Category.findOne({ id: category_id });
@@ -147,12 +175,14 @@ const upsertMenuItem = async (req, res, next) => {
           category_id,
           name,
           price: finalPrice,
+          original_price: finalOriginalPrice,
           is_daily: finalIsDaily,
           badge: badge || "",
           description: description || "",
           image: finalImg,
           is_available: is_available !== undefined ? Boolean(is_available) : true,
           is_special: is_special !== undefined ? Boolean(is_special) : false,
+          is_offer: is_offer !== undefined ? Boolean(is_offer) : false,
           display_order: display_order !== undefined ? Number(display_order) : 0,
         },
         { new: true, upsert: true, setDefaultsOnInsert: true }
@@ -172,6 +202,7 @@ const upsertMenuItem = async (req, res, next) => {
       category_id,
       name,
       price: finalPrice,
+      original_price: finalOriginalPrice,
       is_daily: finalIsDaily,
       badge: badge || "",
       description: description || "",
@@ -179,6 +210,7 @@ const upsertMenuItem = async (req, res, next) => {
       img: finalImg,
       is_available: is_available !== undefined ? Boolean(is_available) : true,
       is_special: is_special !== undefined ? Boolean(is_special) : false,
+      is_offer: is_offer !== undefined ? Boolean(is_offer) : false,
       display_order: display_order !== undefined ? Number(display_order) : 0,
     };
 
@@ -226,6 +258,7 @@ const deleteMenuItem = async (req, res, next) => {
 module.exports = {
   getFullMenu,
   getSpecialItems,
+  getOfferItems,
   getItems,
   upsertMenuItem,
   deleteMenuItem,

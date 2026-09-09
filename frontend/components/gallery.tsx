@@ -51,7 +51,7 @@ export const Gallery: React.FC = () => {
     }, [activePhotoIndex, allPhotos.length]);
 
     return (
-        <section id="gallery" className="py-20 sm:py-28 bg-white relative overflow-hidden text-gray-900">
+        <section id="gallery" className="py-14 bg-white relative overflow-hidden text-gray-900">
             {/* Ambient Background Blur Elements */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
                 {/* Main glow */}

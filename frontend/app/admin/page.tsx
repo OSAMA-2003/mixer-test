@@ -83,6 +83,7 @@ export default function AdminDashboard() {
     working_hours: "يومياً من ١٢:٠٠ ظهراً حتى ٠٢:٠٠ بعد منتصف الليل",
     facebook_url: "",
     instagram_url: "",
+    show_offers_section: true,
   });
 
   // Filters
@@ -517,12 +518,14 @@ export default function AdminDashboard() {
                     name: "",
                     category_id: categories[0]?.id || "special",
                     price: 50,
+                    original_price: 0,
                     is_daily: false,
                     badge: "",
                     description: "",
                     image: "/products/p1.jpg",
                     is_available: true,
                     is_special: false,
+                    is_offer: false,
                     display_order: menuItems.length + 1,
                   });
                   setShowItemModal(true);
@@ -556,6 +559,12 @@ export default function AdminDashboard() {
                           {item.badge}
                         </span>
                       )}
+                      {item.is_offer && (
+                        <span className="absolute top-3 right-3 bg-rose-600 text-white font-black text-[10px] px-2.5 py-1 rounded-full shadow-md flex items-center gap-1">
+                          <Flame className="w-3.5 h-3.5 fill-current" />
+                          <span>عرض خاص</span>
+                        </span>
+                      )}
                       {item.is_special && (
                         <span className="absolute top-3 left-3 bg-[#008ba3] text-white font-black text-[10px] px-2.5 py-1 rounded-full shadow-md flex items-center gap-1">
                           <Sparkles className="w-3.5 h-3.5" />
@@ -568,11 +577,16 @@ export default function AdminDashboard() {
                     <div className="p-5">
                       <div className="flex items-start justify-between gap-2">
                         <h3 className="font-cairo font-black text-lg text-slate-900 line-clamp-1">{item.name}</h3>
-                        <div className="flex items-baseline gap-1 shrink-0">
-                          <span className="text-xl font-black text-[#008ba3]">
-                            {item.is_daily ? "يومي" : item.price}
-                          </span>
-                          {!item.is_daily && <span className="text-xs font-bold text-slate-500">ج.م</span>}
+                        <div className="flex flex-col items-end shrink-0">
+                          {item.original_price && item.original_price > item.price ? (
+                            <span className="text-[10px] text-slate-400 font-bold line-through">{item.original_price} ج.م</span>
+                          ) : null}
+                          <div className="flex items-baseline gap-1">
+                            <span className="text-xl font-black text-[#008ba3]">
+                              {item.is_daily ? "يومي" : item.price}
+                            </span>
+                            {!item.is_daily && <span className="text-xs font-bold text-slate-500">ج.م</span>}
+                          </div>
                         </div>
                       </div>
                       <p className="text-xs text-slate-500 mt-2 line-clamp-2 leading-relaxed font-medium">
@@ -938,6 +952,21 @@ export default function AdminDashboard() {
               />
             </div>
 
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+              <div>
+                <span className="block text-xs font-black text-slate-900">إظهار قسم العروض الحصرية (Offers Carousel)</span>
+                <span className="text-[11px] text-slate-500 font-medium">التحكم في فتح أو إغلاق قسم العروض الترويجية بالصفحة الرئيسية</span>
+              </div>
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={settings.show_offers_section !== false}
+                  onChange={(e) => setSettings({ ...settings, show_offers_section: e.target.checked })}
+                  className="w-5 h-5 rounded text-[#008ba3] focus:ring-[#008ba3]"
+                />
+              </label>
+            </div>
+
             <div className="pt-4 flex justify-end">
               <button
                 type="submit"
@@ -1031,14 +1060,25 @@ export default function AdminDashboard() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1.5">السعر (بالجنيه المصري)</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1.5">سعر العرض (الآن)</label>
                   <input
                     type="number"
                     disabled={editingItem.is_daily}
                     value={editingItem.is_daily ? 0 : editingItem.price || 0}
                     onChange={(e) => setEditingItem({ ...editingItem, price: Number(e.target.value) })}
+                    className="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 font-bold text-sm font-mono focus:ring-2 focus:ring-[#008ba3]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1.5">السعر الأصلي (قبل الخصم)</label>
+                  <input
+                    type="number"
+                    value={editingItem.original_price || 0}
+                    onChange={(e) => setEditingItem({ ...editingItem, original_price: Number(e.target.value) })}
+                    placeholder="0 إذا لم يوجد خصم"
                     className="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 font-bold text-sm font-mono focus:ring-2 focus:ring-[#008ba3]"
                   />
                 </div>
@@ -1051,7 +1091,7 @@ export default function AdminDashboard() {
                       onChange={(e) => setEditingItem({ ...editingItem, is_daily: e.target.checked })}
                       className="w-4 h-4 rounded text-[#008ba3] focus:ring-[#008ba3]"
                     />
-                    <span>سعر يومي / متغير (سوق)</span>
+                    <span>سعر يومي (سوق)</span>
                   </label>
                 </div>
               </div>
@@ -1096,7 +1136,7 @@ export default function AdminDashboard() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-6 pt-2">
+              <div className="flex items-center gap-6 pt-2 flex-wrap">
                 <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-700">
                   <input
                     type="checkbox"
@@ -1105,6 +1145,16 @@ export default function AdminDashboard() {
                     className="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500"
                   />
                   <span>الصنف متاح للعملاء بالمنيو</span>
+                </label>
+
+                <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-700">
+                  <input
+                    type="checkbox"
+                    checked={editingItem.is_offer || false}
+                    onChange={(e) => setEditingItem({ ...editingItem, is_offer: e.target.checked })}
+                    className="w-4 h-4 rounded text-rose-600 focus:ring-rose-500"
+                  />
+                  <span>عرض في قسم العروض الحصرية 🔥</span>
                 </label>
 
                 <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-700">

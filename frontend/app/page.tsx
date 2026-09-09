@@ -9,11 +9,13 @@ import MixerPromos from "@/components/mixer-promos";
 import MixerStory from "@/components/mixer-story";
 import MixerStats from "@/components/mixer-stats";
 import { MixerExperienceCTA, MixerRingsDivider } from "@/components/mixer-spotlight";
+import MixerOffers from "@/components/mixer-offers";
 import MixerBranches from "@/components/mixer-branches";
 import MixerFooter from "@/components/mixer-footer";
 import { Heart, ChevronDown } from "lucide-react";
 import Delivery from "@/components/delivery";
 import Gallery from "@/components/gallery";
+import FeedbacksSection from "@/components/feedbacks";
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -37,36 +39,33 @@ export default function Home() {
       {/* 4. Product Showcase Experience Section */}
       <MixerExperienceCTA />
 
+      {/* 5. Promotional Offers Carousel (Admin Controllable) */}
+      <MixerOffers />
 
-      {/* 4. Category Selector (عصائر، الركن الشتوي، وافلز، أرز بلبن، إضافات) */}
-      {/* <MixerCategories
-        activeCategory={selectedCategory}
-        onSelectCategory={setSelectedCategory}
-      /> */}
-
-      {/* 5. Featured Dishes & Best Sellers */}
+      {/* 6. Featured Dishes & Best Sellers */}
       <MixerFeatured activeCategory={selectedCategory} />
 
-
-      {/* 6. Promo Banners (إضافاتك & الركن الشتوي) */}
+      {/* 7. Promo Banners (إضافاتك & الركن الشتوي) */}
       <MixerPromos />
 
-      {/* 7. Brand Story (قصتنا وجودتنا - مختلفين بطريقتنا من سنة 2000) */}
+      {/* 8. Brand Story (قصتنا وجودتنا - مختلفين بطريقتنا من سنة 2000) */}
       <MixerStory />
 
-
-
-      {/* 8. Live Statistics Bar */}
+      {/* 9. Live Statistics Bar */}
       <MixerStats />
 
       <Gallery />
 
-      {/* 9. Branches in Egypt */}
+      {/* 10. Branches in Egypt */}
       <MixerBranches />
 
+      {/* 11. Delivery Section */}
       <Delivery />
 
-      {/* 10. Official Footer */}
+      {/* 12. Feedbacks Section (Reviews & Complaints) */}
+      <FeedbacksSection />
+
+      {/* 13. Official Footer */}
       <MixerFooter />
     </main>
   );

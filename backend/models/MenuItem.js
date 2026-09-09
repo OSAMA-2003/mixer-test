@@ -48,6 +48,15 @@ const MenuItemSchema = new mongoose.Schema(
       default: false,
       index: true,
     },
+    is_offer: {
+      type: Boolean,
+      default: false,
+      index: true,
+    },
+    original_price: {
+      type: Number,
+      default: 0,
+    },
     display_order: {
       type: Number,
       default: 0,
