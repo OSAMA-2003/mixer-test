@@ -21,7 +21,7 @@ export interface ImageSequenceProps {
 }
 
 export default function ImageSequence({
-  totalFrames = 139,
+  totalFrames = 110,
   directory = "/frames",
   framePrefix = "frame-",
   digits = 4,
