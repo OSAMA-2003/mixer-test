@@ -160,7 +160,7 @@ export default function MixerOffers() {
 }
 
 /* =========================================================================
-   3D COVERFLOW ENGINE FOR OFFERS (IDENTICAL CARDS & STYLING TO MIXER-FEATURED)
+   3D COVERFLOW ENGINE FOR OFFERS
    ========================================================================= */
 
 interface CoverflowOfferCarouselProps {
