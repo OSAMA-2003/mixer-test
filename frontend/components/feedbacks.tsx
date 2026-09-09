@@ -72,7 +72,7 @@ export default function FeedbacksSection() {
         try {
             const res = await submitCustomerReview(reviewForm);
             if (res.success) {
-                setReviewSuccessMsg("شكراً لتقييمك! تم حفظ تقييمك وسوف يظهر على الموقع فور مراجعته 🎉");
+                setReviewSuccessMsg("شكراً لتقييمك! تم حفظ تقييمك وسوف يظهر على الموقع فور مراجعته ");
                 setReviewForm({ name: "", phone: "", rating: 5, comment: "" });
                 setTimeout(() => setReviewSuccessMsg(null), 4000);
             }
@@ -88,7 +88,7 @@ export default function FeedbacksSection() {
         try {
             const res = await submitFeedback(feedbackForm);
             if (res.success) {
-                setFeedbackSuccessMsg("شكراً لاهتمامك! تم إرسال رسالتك مباشرة لإدارة الخلاط 📩");
+                setFeedbackSuccessMsg("شكراً لاهتمامك! تم إرسال رسالتك مباشرة لإدارة الخلاط ");
                 setFeedbackForm({ name: "", phone: "", type: "suggestion", message: "" });
                 setTimeout(() => setFeedbackSuccessMsg(null), 4000);
             }
@@ -113,7 +113,7 @@ export default function FeedbacksSection() {
                         }`}
                 >
                     <Star className="w-4 h-4 fill-current" />
-                    <span>أضف تقييمك لمطعم الخلاط</span>
+                    <span>أضف تقييمك</span>
                 </button>
 
                 <button
@@ -125,13 +125,13 @@ export default function FeedbacksSection() {
                         }`}
                 >
                     <MessageSquare className="w-4 h-4" />
-                    <span>شكوى أو اقتراح للإدارة</span>
+                    <span>شكوى/اقتراح </span>
                 </button>
             </div>
 
             {activeFormTab === "review" && (
                 <div>
-                    <h4 className="font-cairo font-black text-xl text-slate-900 mb-1">انشر تقييمك لمطعم الخلاط 🌟</h4>
+                    <h4 className="font-cairo font-black text-xl text-slate-900 mb-1">انشر تقييمك لمطعم الخلاط </h4>
                     <p className="text-xs text-slate-500 font-medium mb-6">رأيك يهمنا ويساعدنا دائماً في التطوير تقديم الأفضل</p>
 
                     {reviewSuccessMsg ? (
@@ -171,7 +171,7 @@ export default function FeedbacksSection() {
                                 ) : (
                                     <>
                                         <Send className="w-4 h-4" />
-                                        <span>إرسال التقييم 🌟</span>
+                                        <span>إرسال التقييم </span>
                                     </>
                                 )}
                             </button>
@@ -313,7 +313,7 @@ export default function FeedbacksSection() {
                    DESKTOP LAYOUT (hidden lg:grid): Vertical 2-Column Marquee Side-by-Side with Form Card
                    ========================================================================= */}
                 <div className="hidden lg:grid grid-cols-12 gap-10 items-start">
-                    
+
                     {/* Left 7 Columns: Vertical Continuous Marquee Streams */}
                     <div className="col-span-7 space-y-4">
                         <div className="flex items-center justify-between mb-2">
