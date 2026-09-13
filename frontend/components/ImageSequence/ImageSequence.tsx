@@ -413,7 +413,7 @@ export default function ImageSequence({
               opacity: { duration: 0.8 },
               y: { repeat: Infinity, duration: 2, ease: "easeInOut" },
             }}
-            className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-1.5 cursor-pointer group bg-black/40 hover:bg-slate-950/80 backdrop-blur-md text-white px-8 py-2.5 rounded-xl border border-white/20 shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95"
+            className="absolute bottom-25 sm:bottom-15 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-1.5 cursor-pointer group bg-black/40 hover:bg-slate-950/80 backdrop-blur-md text-white px-8 py-2.5 rounded-xl border border-white/20 shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95"
           >
             <span className="text-[11px] sm:text-xs font-black font-cairo text-white/90 group-hover:text-[#fab818] transition-colors">
               اكتشف العروض
